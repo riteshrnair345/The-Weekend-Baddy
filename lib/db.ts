@@ -27,22 +27,13 @@ const ROSTER_KEY = 'twb_roster';
 
 // Read all players
 export async function getPlayers(): Promise<Player[]> {
-  try {
-    const data = await kv.get<Player[]>(ROSTER_KEY);
-    return data || [];
-  } catch (error) {
-    console.error('Failed to get players from KV:', error);
-    return [];
-  }
+  const data = await kv.get<Player[]>(ROSTER_KEY);
+  return data || [];
 }
 
 // Write all players
 export async function savePlayers(players: Player[]): Promise<void> {
-  try {
-    await kv.set(ROSTER_KEY, players);
-  } catch (error) {
-    console.error('Failed to save players to KV:', error);
-  }
+  await kv.set(ROSTER_KEY, players);
 }
 
 // Find a player by QR ID
