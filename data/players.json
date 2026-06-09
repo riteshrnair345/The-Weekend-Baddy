@@ -1,0 +1,34 @@
+[
+  {
+    "id": "TWB-001",
+    "qrId": "VFdCLTAwMS1yaXRlc2hybmFpcjM0NUBnbWFpbC5jb20",
+    "name": "Ritesh R Nair",
+    "email": "riteshrnair345@gmail.com",
+    "age": 21,
+    "proficiency": "Amateur",
+    "duration": "< 1 year",
+    "gear": "Yes",
+    "heardFrom": "Instagram",
+    "firstSeen": "2026-06-09T14:41:25.143Z",
+    "lastActive": "2026-06-09T14:41:25.143Z",
+    "eventsAttended": 0,
+    "checkInStatus": "Pending",
+    "timeWhenCheckedIn": null
+  },
+  {
+    "id": "TWB-002",
+    "qrId": "VFdCLTAwMi1yaXRlc2hybmFpcjI2N0BnbWFpbC5jb20",
+    "name": "Ritesh",
+    "email": "riteshrnair267@gmail.com",
+    "age": 21,
+    "proficiency": "Amateur",
+    "duration": "1-3 years",
+    "gear": "Yes",
+    "heardFrom": "Friend/Word of Mouth",
+    "firstSeen": "2026-06-09T14:47:23.644Z",
+    "lastActive": "2026-06-09T14:48:05.244Z",
+    "eventsAttended": 1,
+    "checkInStatus": "Checked In",
+    "timeWhenCheckedIn": "2026-06-09T14:48:05.244Z"
+  }
+]
