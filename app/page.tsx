@@ -55,8 +55,8 @@ export default function WeekendBaddieApp() {
               <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-emerald-400 to-cyan-500 flex items-center justify-center">
                 <span className="text-neutral-950 font-bold text-sm">WB</span>
               </div>
-              <h1 className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-emerald-400 to-cyan-500">
-                Weekend Baddie
+              <h1 className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-emerald-600 to-teal-500 drop-shadow-sm">
+                The Weekend Baddy
               </h1>
             </div>
             

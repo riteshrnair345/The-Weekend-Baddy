@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Weekend Baddie | Badminton Community",
-  description: "Lightweight app for the Weekend Baddie badminton community to manage registrations and check-ins.",
+  title: "The Weekend Baddy | Admin Portal",
+  description: "Check-in portal for The Weekend Baddy events",
 };
 
 export default function RootLayout({
