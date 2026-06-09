@@ -1,9 +1,12 @@
-import { Redis } from '@upstash/redis';
+import Redis from 'ioredis';
 
-const kv = new Redis({
-  url: process.env.KV_REST_API_URL || process.env.KV_REST_URL || process.env.UPSTASH_REDIS_REST_URL || '',
-  token: process.env.KV_REST_API_TOKEN || process.env.KV_REST_TOKEN || process.env.UPSTASH_REDIS_REST_TOKEN || '',
-});
+const redisUrl = process.env.KV_REDIS_URL || process.env.REDIS_URL || process.env.UPSTASH_REDIS_URL || '';
+
+if (!redisUrl) {
+  throw new Error("Redis URL is missing! Database is not connected properly in Vercel Environment Variables.");
+}
+
+const kv = new Redis(redisUrl);
 
 // Define the player interface
 export interface Player {
@@ -27,13 +30,19 @@ const ROSTER_KEY = 'twb_roster';
 
 // Read all players
 export async function getPlayers(): Promise<Player[]> {
-  const data = await kv.get<Player[]>(ROSTER_KEY);
-  return data || [];
+  const data = await kv.get(ROSTER_KEY);
+  if (!data) return [];
+  try {
+    return JSON.parse(data) as Player[];
+  } catch (e) {
+    console.error("Failed to parse JSON from Redis", e);
+    return [];
+  }
 }
 
 // Write all players
 export async function savePlayers(players: Player[]): Promise<void> {
-  await kv.set(ROSTER_KEY, players);
+  await kv.set(ROSTER_KEY, JSON.stringify(players));
 }
 
 // Find a player by QR ID
