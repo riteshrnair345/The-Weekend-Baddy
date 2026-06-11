@@ -1,14 +1,30 @@
 import { NextResponse } from 'next/server';
 import { getPlayerByEmail, generateNextPlayerId, upsertPlayer, Player } from '@/lib/db';
 import nodemailer from 'nodemailer';
+import crypto from 'crypto';
 
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { name, email, phone, proficiency, duration, shoes, heardFrom } = body;
+    const { name, email, phone, proficiency, duration, shoes, heardFrom, razorpay_payment_id, razorpay_order_id, razorpay_signature } = body;
 
     if (!name || !email || !phone) {
       return NextResponse.json({ success: false, error: 'Missing required fields' }, { status: 400 });
+    }
+
+    if (!razorpay_payment_id || !razorpay_order_id || !razorpay_signature) {
+      return NextResponse.json({ success: false, error: 'Payment details missing' }, { status: 400 });
+    }
+
+    const key_secret = process.env.RAZORPAY_KEY_SECRET || 'YourMockKeySecret';
+    const bodyToSign = razorpay_order_id + "|" + razorpay_payment_id;
+    const expectedSignature = crypto
+      .createHmac("sha256", key_secret)
+      .update(bodyToSign.toString())
+      .digest("hex");
+
+    if (expectedSignature !== razorpay_signature) {
+      return NextResponse.json({ success: false, error: 'Invalid payment signature' }, { status: 400 });
     }
 
     // Check if player already exists
@@ -29,6 +45,8 @@ export async function POST(request: Request) {
         shoes,
         heardFrom,
         checkInStatus: 'Pending', // Reset to pending for the new event
+        razorpay_payment_id,
+        payment_status: 'Paid',
       };
     } else {
       // New player
@@ -53,6 +71,8 @@ export async function POST(request: Request) {
         eventsAttended: 0,
         checkInStatus: 'Pending',
         timeWhenCheckedIn: null,
+        razorpay_payment_id,
+        payment_status: 'Paid',
       };
     }
 

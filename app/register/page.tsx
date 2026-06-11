@@ -1,7 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import { Loader2, CheckCircle, Sparkles, Smile, Trophy, Clock, Zap, Phone, Mail, User, Info } from 'lucide-react';
+import { Loader2, CheckCircle, Sparkles, Smile, Trophy, Clock, Zap, Phone, Mail, User, Info, CreditCard } from 'lucide-react';
+import Script from 'next/script';
 
 export default function Register() {
   const [formData, setFormData] = useState({
@@ -26,7 +27,7 @@ export default function Register() {
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handlePayment = async (e: React.FormEvent) => {
     e.preventDefault();
     
     // Validation
@@ -39,22 +40,72 @@ export default function Register() {
     setError(null);
 
     try {
-      const res = await fetch('/api/register', {
+      // 1. Create Razorpay order
+      const res = await fetch('/api/checkout', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
       });
 
-      const data = await res.json();
-
-      if (data.success) {
-        setTicketData({ qrId: data.qrId, name: data.name });
-      } else {
-        setError(data.error || 'Failed to register');
+      const orderData = await res.json();
+      if (!orderData.id) {
+        throw new Error(orderData.error || "Failed to initiate payment");
       }
-    } catch (err) {
-      setError('A network error occurred. Please try again.');
-    } finally {
+
+      // 2. Open Razorpay Checkout
+      const options = {
+        key: orderData.key,
+        amount: orderData.amount,
+        currency: orderData.currency,
+        name: "The Weekend Baddy",
+        description: "Event Ticket Registration",
+        order_id: orderData.id,
+        handler: async function (response: any) {
+          // 3. Payment succeeded! Verify and register.
+          try {
+            setIsLoading(true);
+            const verifyRes = await fetch('/api/register', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                ...formData,
+                razorpay_payment_id: response.razorpay_payment_id,
+                razorpay_order_id: response.razorpay_order_id,
+                razorpay_signature: response.razorpay_signature,
+              }),
+            });
+            const verifyData = await verifyRes.json();
+            
+            if (verifyData.success) {
+              setTicketData({ qrId: verifyData.qrId, name: verifyData.name });
+            } else {
+              setError(verifyData.error || 'Payment verified but registration failed.');
+            }
+          } catch (err) {
+            setError("Error finalizing registration. Please contact support.");
+          } finally {
+            setIsLoading(false);
+          }
+        },
+        prefill: {
+          name: formData.name,
+          email: formData.email,
+          contact: formData.phone,
+        },
+        theme: {
+          color: "#6366f1",
+        },
+      };
+
+      const rzp = new (window as any).Razorpay(options);
+      rzp.on('payment.failed', function (response: any) {
+        setError(response.error.description);
+        setIsLoading(false);
+      });
+      rzp.open();
+
+    } catch (err: any) {
+      setError(err.message || 'A network error occurred. Please try again.');
       setIsLoading(false);
     }
   };
@@ -114,6 +165,7 @@ export default function Register() {
 
   return (
     <div className="min-h-screen bg-[#fafafa] text-slate-800 p-4 sm:p-8 flex flex-col items-center justify-center selection:bg-indigo-200 relative overflow-hidden">
+      <Script src="https://checkout.razorpay.com/v1/checkout.js" strategy="lazyOnload" />
       
       {/* Soft Background Image */}
       <div className="absolute inset-0 bg-[url('/badminton-bg.png')] bg-cover bg-center bg-no-repeat opacity-60 pointer-events-none mix-blend-multiply" />
@@ -152,7 +204,7 @@ export default function Register() {
             </div>
           )}
 
-          <form onSubmit={handleSubmit} className="space-y-8">
+          <form onSubmit={handlePayment} className="space-y-8">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-8">
               
               {/* 1. Full Name */}
@@ -304,7 +356,10 @@ export default function Register() {
                     Securing your spot...
                   </>
                 ) : (
-                  'Complete Registration 🎉'
+                  <>
+                    <CreditCard className="w-6 h-6" />
+                    Pay ₹150 with GPay
+                  </>
                 )}
               </button>
             </div>

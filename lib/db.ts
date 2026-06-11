@@ -24,6 +24,8 @@ export interface Player {
   eventsAttended: number;
   checkInStatus: 'Pending' | 'Checked In';
   timeWhenCheckedIn: string | null;
+  razorpay_payment_id?: string;
+  payment_status?: 'Paid' | 'Pending';
 }
 
 const ROSTER_KEY = 'twb_roster';
