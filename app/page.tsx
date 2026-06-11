@@ -10,6 +10,10 @@ const ADMIN_PIN = process.env.NEXT_PUBLIC_ADMIN_PIN || "0000";
 type RosterItem = {
   name: string;
   email: string;
+  age?: number;
+  proficiency?: string;
+  duration?: string;
+  gear?: string;
   checkInTime: string | null;
   status: "Checked In" | "Pending";
 };
@@ -413,6 +417,7 @@ function DashboardView() {
               <thead className="bg-neutral-800/50 text-neutral-400 border-b border-neutral-800">
                 <tr>
                   <th className="px-6 py-4 font-medium">Participant</th>
+                  <th className="px-6 py-4 font-medium hidden md:table-cell">Details</th>
                   <th className="px-6 py-4 font-medium">Check-in Status</th>
                   <th className="px-6 py-4 font-medium hidden sm:table-cell">Time</th>
                 </tr>
@@ -420,14 +425,14 @@ function DashboardView() {
               <tbody className="divide-y divide-neutral-800/50">
                 {loading && roster.length === 0 ? (
                   <tr>
-                    <td colSpan={3} className="px-6 py-12 text-center">
+                    <td colSpan={4} className="px-6 py-12 text-center">
                       <Loader2 className="w-8 h-8 text-emerald-400 animate-spin mx-auto mb-3" />
                       <p className="text-neutral-400">Loading roster...</p>
                     </td>
                   </tr>
                 ) : roster.length === 0 ? (
                   <tr>
-                    <td colSpan={3} className="px-6 py-12 text-center text-neutral-400">
+                    <td colSpan={4} className="px-6 py-12 text-center text-neutral-400">
                       No participants registered yet.
                     </td>
                   </tr>
@@ -437,6 +442,11 @@ function DashboardView() {
                       <td className="px-6 py-4">
                         <div className="font-medium text-neutral-200">{person.name}</div>
                         <div className="text-neutral-500 text-xs mt-0.5">{person.email}</div>
+                      </td>
+                      <td className="px-6 py-4 hidden md:table-cell text-xs text-neutral-400 space-y-1">
+                        <div>Age: <span className="text-neutral-200">{person.age || '-'}</span></div>
+                        <div>Skill: <span className="text-neutral-200">{person.proficiency || '-'}</span></div>
+                        <div>Exp: <span className="text-neutral-200">{person.duration || '-'}</span></div>
                       </td>
                       <td className="px-6 py-4">
                         {person.status === "Checked In" ? (
