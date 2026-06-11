@@ -64,7 +64,7 @@ export default function WeekendBaddieApp() {
                 <span className="text-white font-bold text-sm">WB</span>
               </div>
               <h1 className="text-xl font-bold text-slate-800 tracking-tight hidden sm:block">
-                The Weekend Baddie
+                The Weekend Baddy
               </h1>
             </div>
             

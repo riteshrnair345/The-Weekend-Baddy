@@ -126,7 +126,7 @@ export default function Register() {
             <span className="text-2xl">WB</span>
           </div>
           <h1 className="text-4xl sm:text-5xl font-black tracking-tight text-slate-800 mb-3 text-center">
-            The Weekend Baddie
+            The Weekend Baddy
           </h1>
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-indigo-50 border border-indigo-100 text-indigo-600 text-sm font-semibold shadow-sm">
             <Sparkles className="w-4 h-4" />
@@ -312,7 +312,7 @@ export default function Register() {
         </div>
         
         <p className="text-center text-slate-400 text-sm font-medium mt-8 pb-8">
-          © {new Date().getFullYear()} The Weekend Baddie. All rights reserved.
+          © {new Date().getFullYear()} The Weekend Baddy. All rights reserved.
         </p>
       </div>
     </div>

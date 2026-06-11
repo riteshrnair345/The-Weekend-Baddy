@@ -1,6 +1,6 @@
 # Weekend Baddie - Setup Instructions
 
-This document outlines the steps to set up the complete system for the Weekend Baddie application.
+This document outlines the steps to set up the complete system for the Weekend Baddy application.
 
 ## 1. Google Forms & Sheets Setup
 

@@ -72,10 +72,10 @@ export async function POST(request: Request) {
       
       const htmlBody = `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; background-color: #000; color: #fff; padding: 20px; border-radius: 10px;">
-          <h1 style="color: #10b981; text-align: center;">The Weekend Baddie</h1>
+          <h1 style="color: #10b981; text-align: center;">The Weekend Baddy</h1>
           <h2 style="text-align: center;">Trial Membership Confirmed!</h2>
           <p>Hi ${player.name},</p>
-          <p>Welcome to The Weekend Baddie community! Your registration was successful.</p>
+          <p>Welcome to The Weekend Baddy community! Your registration was successful.</p>
           <p>Below is your custom QR Code ticket. Please present this code to the event organizers upon arrival to check in.</p>
           <div style="text-align: center; margin: 30px 0; background-color: white; padding: 20px; border-radius: 10px; display: inline-block;">
             <img src="${qrCodeUrl}" alt="Your QR Code" width="300" height="300" />
@@ -87,7 +87,7 @@ export async function POST(request: Request) {
 
       try {
         await transporter.sendMail({
-          from: `"The Weekend Baddie" <${process.env.EMAIL_USER}>`,
+          from: `"The Weekend Baddy" <${process.env.EMAIL_USER}>`,
           to: player.email,
           subject: 'Your Weekend Baddie Ticket 🎟️',
           html: htmlBody,

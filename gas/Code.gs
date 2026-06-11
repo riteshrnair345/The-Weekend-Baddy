@@ -72,7 +72,7 @@ function onFormSubmit(e) {
   const htmlBody = `
     <div style="font-family: sans-serif; max-width: 500px; margin: 0 auto; text-align: center;">
       <h2>Hi ${name}!</h2>
-      <p>You're successfully registered for the Weekend Baddie session.</p>
+      <p>You're successfully registered for the Weekend Baddy session.</p>
       <p>Please present the QR code below when you arrive:</p>
       <img src="${qrCodeUrl}" alt="Your Ticket QR Code" style="width: 300px; height: 300px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);" />
       <p style="color: #666; font-size: 12px; margin-top: 20px;">Ticket ID: ${uniqueId}</p>
