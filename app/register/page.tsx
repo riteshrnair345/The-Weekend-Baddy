@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Loader2, CheckCircle, Sparkles, Smile, Trophy, Clock, Zap, Phone, Mail, User, Info, CreditCard } from 'lucide-react';
 import Script from 'next/script';
 
@@ -20,12 +20,27 @@ export default function Register() {
   const [ticketData, setTicketData] = useState<{ qrId: string; name: string } | null>(null);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const newFormData = { ...formData, [e.target.name]: e.target.value };
+    setFormData(newFormData);
+    localStorage.setItem('twb_register_draft', JSON.stringify(newFormData));
   };
 
   const handleSelect = (name: string, value: string) => {
-    setFormData({ ...formData, [name]: value });
+    const newFormData = { ...formData, [name]: value };
+    setFormData(newFormData);
+    localStorage.setItem('twb_register_draft', JSON.stringify(newFormData));
   };
+
+  useEffect(() => {
+    const draft = localStorage.getItem('twb_register_draft');
+    if (draft) {
+      try {
+        setFormData(JSON.parse(draft));
+      } catch (e) {
+        console.error('Failed to parse draft form data');
+      }
+    }
+  }, []);
 
   const handlePayment = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -95,6 +110,11 @@ export default function Register() {
         theme: {
           color: "#6366f1",
         },
+        modal: {
+          ondismiss: function () {
+            setIsLoading(false);
+          }
+        }
       };
 
       const rzp = new (window as any).Razorpay(options);
@@ -152,7 +172,9 @@ export default function Register() {
           <button
             onClick={() => {
               setTicketData(null);
-              setFormData({ name: '', email: '', phone: '', proficiency: '', duration: '', shoes: '', heardFrom: '' });
+              const blankForm = { name: '', email: '', phone: '', proficiency: '', duration: '', shoes: '', heardFrom: '' };
+              setFormData(blankForm);
+              localStorage.removeItem('twb_register_draft');
             }}
             className="w-full bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold py-4 rounded-2xl transition-all shadow-sm"
           >
