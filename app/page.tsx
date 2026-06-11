@@ -52,10 +52,8 @@ export default function WeekendBaddieApp() {
   return (
     <div className="min-h-screen bg-[#fafafa] text-slate-800 font-sans selection:bg-indigo-100 relative overflow-hidden">
       
-      {/* Soft Background Pattern Mesh */}
-      <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] rounded-full bg-pink-100/60 blur-[120px] pointer-events-none" />
-      <div className="absolute top-[40%] right-[-10%] w-[40%] h-[40%] rounded-full bg-indigo-100/60 blur-[120px] pointer-events-none" />
-      <div className="absolute bottom-[-10%] left-[20%] w-[30%] h-[30%] rounded-full bg-amber-50/60 blur-[100px] pointer-events-none" />
+      {/* Soft Background Image */}
+      <div className="absolute inset-0 bg-[url('/badminton-bg.png')] bg-cover bg-center bg-no-repeat opacity-60 pointer-events-none mix-blend-multiply" />
 
       {/* Header */}
       <header className="sticky top-0 z-20 bg-white/80 backdrop-blur-xl border-b border-slate-200/50 shadow-sm">

@@ -64,10 +64,8 @@ export default function Register() {
     
     return (
       <div className="min-h-screen bg-[#fafafa] text-slate-800 flex flex-col items-center justify-center p-4 selection:bg-indigo-200 relative overflow-hidden">
-        {/* Soft Background Mesh */}
-        <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] rounded-full bg-pink-200/40 blur-[100px] pointer-events-none" />
-        <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] rounded-full bg-indigo-200/40 blur-[100px] pointer-events-none" />
-        <div className="absolute top-[20%] right-[10%] w-[30%] h-[30%] rounded-full bg-amber-100/40 blur-[80px] pointer-events-none" />
+        {/* Soft Background Image */}
+        <div className="absolute inset-0 bg-[url('/badminton-bg.png')] bg-cover bg-center bg-no-repeat opacity-60 pointer-events-none mix-blend-multiply" />
 
         <div className="max-w-md w-full bg-white/90 backdrop-blur-xl border border-white/50 rounded-[2.5rem] p-8 text-center space-y-6 shadow-[0_8px_40px_rgb(0,0,0,0.04)] relative z-10">
           
@@ -117,11 +115,8 @@ export default function Register() {
   return (
     <div className="min-h-screen bg-[#fafafa] text-slate-800 p-4 sm:p-8 flex flex-col items-center justify-center selection:bg-indigo-200 relative overflow-hidden">
       
-      {/* Soft Background Mesh */}
-      <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] rounded-full bg-rose-200/40 blur-[120px] pointer-events-none" />
-      <div className="absolute top-[40%] right-[-10%] w-[40%] h-[40%] rounded-full bg-indigo-200/40 blur-[120px] pointer-events-none" />
-      <div className="absolute bottom-[-10%] left-[20%] w-[30%] h-[30%] rounded-full bg-amber-100/40 blur-[100px] pointer-events-none" />
-      <div className="absolute top-[10%] right-[20%] w-[20%] h-[20%] rounded-full bg-emerald-100/40 blur-[80px] pointer-events-none" />
+      {/* Soft Background Image */}
+      <div className="absolute inset-0 bg-[url('/badminton-bg.png')] bg-cover bg-center bg-no-repeat opacity-60 pointer-events-none mix-blend-multiply" />
 
       <div className="max-w-2xl w-full relative z-10 pt-4">
         
