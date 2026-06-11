@@ -2,7 +2,7 @@
 
 import { useEffect, useState, useRef } from "react";
 import { Html5Qrcode } from "html5-qrcode";
-import { Camera, Users, CheckCircle, XCircle, RefreshCw, Loader2, Lock, LogOut } from "lucide-react";
+import { Camera, Users, CheckCircle, XCircle, RefreshCw, Loader2, Lock, LogOut, Trash2 } from "lucide-react";
 
 
 const ADMIN_PIN = process.env.NEXT_PUBLIC_ADMIN_PIN || "0000";
@@ -361,7 +361,30 @@ function ScannerView() {
 function DashboardView() {
   const [roster, setRoster] = useState<RosterItem[]>([]);
   const [loading, setLoading] = useState(true);
+  const [isResetting, setIsResetting] = useState(false);
   const [error, setError] = useState("");
+
+  const handleReset = async () => {
+    if (!window.confirm("Are you sure you want to permanently delete ALL players from the roster? This cannot be undone.")) return;
+    
+    setIsResetting(true);
+    try {
+      const response = await fetch('/api/reset', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${ADMIN_PIN}`
+        }
+      });
+      if (!response.ok) throw new Error('Failed to reset');
+      
+      await fetchRoster();
+    } catch (err) {
+      console.error(err);
+      setError("Failed to clear the roster.");
+    } finally {
+      setIsResetting(false);
+    }
+  };
 
   const fetchRoster = async () => {
     setLoading(true);
@@ -395,14 +418,24 @@ function DashboardView() {
             {checkedInCount} of {roster.length} participants checked in
           </p>
         </div>
-        <button
-          onClick={fetchRoster}
-          disabled={loading}
-          className="flex items-center gap-2 px-4 py-2 bg-neutral-800 hover:bg-neutral-700 disabled:opacity-50 text-white rounded-lg font-medium transition-colors border border-neutral-700"
-        >
-          <RefreshCw className={`w-4 h-4 ${loading ? "animate-spin" : ""}`} />
-          Refresh
-        </button>
+        <div className="flex items-center gap-2">
+          <button
+            onClick={handleReset}
+            disabled={loading || isResetting}
+            className="flex items-center gap-2 px-4 py-2 bg-red-500/10 hover:bg-red-500/20 text-red-500 disabled:opacity-50 rounded-lg font-medium transition-colors border border-red-500/20"
+          >
+            {isResetting ? <Loader2 className="w-4 h-4 animate-spin" /> : <Trash2 className="w-4 h-4" />}
+            <span className="hidden sm:inline">Clear Roster</span>
+          </button>
+          <button
+            onClick={fetchRoster}
+            disabled={loading}
+            className="flex items-center gap-2 px-4 py-2 bg-neutral-800 hover:bg-neutral-700 disabled:opacity-50 text-white rounded-lg font-medium transition-colors border border-neutral-700"
+          >
+            <RefreshCw className={`w-4 h-4 ${loading && !isResetting ? "animate-spin" : ""}`} />
+            Refresh
+          </button>
+        </div>
       </div>
 
       {error ? (
