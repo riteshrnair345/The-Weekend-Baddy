@@ -10,10 +10,10 @@ const ADMIN_PIN = process.env.NEXT_PUBLIC_ADMIN_PIN || "0000";
 type RosterItem = {
   name: string;
   email: string;
-  age?: number;
+  phone?: string;
   proficiency?: string;
   duration?: string;
-  gear?: string;
+  shoes?: string;
   checkInTime: string | null;
   status: "Checked In" | "Pending";
 };
@@ -176,7 +176,7 @@ function ScannerView() {
   const [scanStatus, setScanStatus] = useState<"idle" | "scanning" | "success" | "error">("idle");
   const [message, setMessage] = useState("");
   const [participantName, setParticipantName] = useState("");
-  const [playerInfo, setPlayerInfo] = useState<{age?: number, proficiency?: string, duration?: string} | null>(null);
+  const [playerInfo, setPlayerInfo] = useState<{phone?: string, proficiency?: string, duration?: string, shoes?: string} | null>(null);
   const scannerRef = useRef<Html5Qrcode | null>(null);
 
   useEffect(() => {
@@ -250,9 +250,10 @@ function ScannerView() {
         setScanStatus("success");
         setParticipantName(result.name || "Participant");
         setPlayerInfo({
-          age: result.age,
+          phone: result.phone,
           proficiency: result.proficiency,
-          duration: result.duration
+          duration: result.duration,
+          shoes: result.shoes
         });
         setMessage(result.message || "Check-in successful");
       } else {
@@ -310,9 +311,10 @@ function ScannerView() {
                   
                   {playerInfo && (
                     <div className="bg-neutral-800/50 border border-emerald-500/30 rounded-xl p-3 w-full mb-4 text-left grid grid-cols-2 gap-2 text-sm">
-                      <div className="text-neutral-400 text-xs">Age: <span className="text-white text-sm block">{playerInfo.age || 'N/A'}</span></div>
+                      <div className="text-neutral-400 text-xs">Phone: <span className="text-white text-sm block">{playerInfo.phone || 'N/A'}</span></div>
                       <div className="text-neutral-400 text-xs">Skill: <span className="text-white text-sm block">{playerInfo.proficiency || 'N/A'}</span></div>
-                      <div className="text-neutral-400 text-xs col-span-2">Experience: <span className="text-white text-sm block">{playerInfo.duration || 'N/A'}</span></div>
+                      <div className="text-neutral-400 text-xs">Experience: <span className="text-white text-sm block">{playerInfo.duration || 'N/A'}</span></div>
+                      <div className="text-neutral-400 text-xs">Shoes: <span className="text-white text-sm block">{playerInfo.shoes || 'N/A'}</span></div>
                     </div>
                   )}
 
@@ -477,9 +479,10 @@ function DashboardView() {
                         <div className="text-neutral-500 text-xs mt-0.5">{person.email}</div>
                       </td>
                       <td className="px-6 py-4 hidden md:table-cell text-xs text-neutral-400 space-y-1">
-                        <div>Age: <span className="text-neutral-200">{person.age || '-'}</span></div>
+                        <div>Phone: <span className="text-neutral-200">{person.phone || '-'}</span></div>
                         <div>Skill: <span className="text-neutral-200">{person.proficiency || '-'}</span></div>
                         <div>Exp: <span className="text-neutral-200">{person.duration || '-'}</span></div>
+                        <div>Shoes: <span className="text-neutral-200">{person.shoes || '-'}</span></div>
                       </td>
                       <td className="px-6 py-4">
                         {person.status === "Checked In" ? (

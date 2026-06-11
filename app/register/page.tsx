@@ -1,16 +1,16 @@
 'use client';
 
 import { useState } from 'react';
-import { Loader2, CheckCircle, Sparkles, Smile, Trophy, Clock, Zap } from 'lucide-react';
+import { Loader2, CheckCircle, Sparkles, Smile, Trophy, Clock, Zap, Phone, Mail, User, Info } from 'lucide-react';
 
 export default function Register() {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
-    age: '',
+    phone: '',
     proficiency: '',
     duration: '',
-    gear: '',
+    shoes: '',
     heardFrom: '',
   });
 
@@ -28,6 +28,13 @@ export default function Register() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Validation
+    if (!formData.name || !formData.email || !formData.phone || !formData.proficiency || !formData.duration || !formData.shoes || !formData.heardFrom) {
+      setError("Please fill out all fields before continuing.");
+      return;
+    }
+
     setIsLoading(true);
     setError(null);
 
@@ -53,25 +60,28 @@ export default function Register() {
   };
 
   if (ticketData) {
-    const qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(ticketData.qrId)}`;
+    const qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&color=10b981&bgcolor=0a0a0a&data=${encodeURIComponent(ticketData.qrId)}`;
     
     return (
-      <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-slate-50 to-white text-slate-900 flex flex-col items-center justify-center p-4">
-        <div className="max-w-md w-full bg-white border border-slate-200 rounded-3xl p-8 text-center space-y-6 shadow-xl">
-          <div className="mx-auto w-20 h-20 bg-emerald-100 rounded-full flex items-center justify-center mb-4 shadow-sm border border-emerald-200">
-            <CheckCircle className="w-10 h-10 text-emerald-600" />
+      <div className="min-h-screen bg-neutral-950 text-neutral-100 flex flex-col items-center justify-center p-4 selection:bg-emerald-500/30">
+        <div className="max-w-md w-full bg-neutral-900 border border-neutral-800 rounded-3xl p-8 text-center space-y-6 shadow-2xl relative overflow-hidden">
+          
+          <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-emerald-500 to-cyan-500" />
+          
+          <div className="mx-auto w-20 h-20 bg-emerald-500/10 rounded-full flex items-center justify-center mb-4 shadow-[0_0_30px_rgba(16,185,129,0.2)] border border-emerald-500/20">
+            <CheckCircle className="w-10 h-10 text-emerald-400" />
           </div>
           
           <div>
-            <h1 className="text-3xl font-extrabold tracking-tight mb-2 text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-teal-600">
+            <h1 className="text-3xl font-extrabold tracking-tight mb-2 text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400">
               You're In, {ticketData.name}! 🎉
             </h1>
-            <p className="text-slate-500">
+            <p className="text-neutral-400 text-sm">
               We've emailed you a copy of your ticket. Get ready for an amazing weekend!
             </p>
           </div>
 
-          <div className="bg-white p-4 rounded-3xl inline-block shadow-lg mx-auto border border-slate-100">
+          <div className="bg-black/50 p-4 rounded-3xl inline-block shadow-inner mx-auto border border-neutral-800 backdrop-blur-sm">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img 
               src={qrCodeUrl} 
@@ -80,20 +90,21 @@ export default function Register() {
             />
           </div>
 
-          <div className="bg-emerald-50 border border-emerald-200 rounded-2xl p-4">
-            <p className="text-emerald-700 text-sm font-medium">
-              📸 Take a quick screenshot of this code to show at the entrance!
+          <div className="bg-emerald-500/10 border border-emerald-500/20 rounded-2xl p-4 flex items-start gap-3 text-left">
+            <Info className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
+            <p className="text-emerald-400/90 text-sm font-medium leading-relaxed">
+              Take a quick screenshot of this code to show at the entrance!
             </p>
           </div>
 
           <button
             onClick={() => {
               setTicketData(null);
-              setFormData({ name: '', email: '', age: '', proficiency: '', duration: '', gear: '', heardFrom: '' });
+              setFormData({ name: '', email: '', phone: '', proficiency: '', duration: '', shoes: '', heardFrom: '' });
             }}
-            className="w-full bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold py-4 rounded-2xl transition-all"
+            className="w-full bg-neutral-800 hover:bg-neutral-700 text-white font-bold py-4 rounded-2xl transition-all border border-neutral-700"
           >
-            Register a Friend
+            Register another player
           </button>
         </div>
       </div>
@@ -101,119 +112,92 @@ export default function Register() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-emerald-50 text-slate-900 p-4 sm:p-8 flex justify-center selection:bg-emerald-200">
+    <div className="min-h-screen bg-neutral-950 text-neutral-100 p-4 sm:p-8 flex flex-col items-center justify-center selection:bg-emerald-500/30">
       <div className="max-w-2xl w-full">
         
-        {/* Header - No Organizer Login */}
-        <header className="mb-10 flex flex-col items-center justify-center pt-8">
-          <div className="w-16 h-16 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-3xl flex items-center justify-center font-black text-white shadow-lg mb-4 rotate-3 hover:rotate-6 transition-transform">
+        {/* Header */}
+        <header className="mb-10 flex flex-col items-center justify-center pt-4">
+          <div className="w-16 h-16 bg-gradient-to-br from-emerald-500 to-cyan-500 rounded-3xl flex items-center justify-center font-black text-black shadow-[0_0_40px_rgba(16,185,129,0.3)] mb-6 rotate-3 hover:rotate-6 transition-transform">
             <span className="text-2xl">WB</span>
           </div>
-          <h1 className="text-4xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-teal-600">
+          <h1 className="text-4xl sm:text-5xl font-black tracking-tight text-white mb-3">
             The Weekend Baddie
           </h1>
-          <p className="text-slate-500 mt-2 font-medium flex items-center gap-2">
-            <Sparkles className="w-4 h-4 text-emerald-500" />
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-sm font-medium">
+            <Sparkles className="w-4 h-4" />
             Your complimentary trial awaits
-          </p>
+          </div>
         </header>
 
         {/* Form Container */}
-        <div className="bg-white/80 backdrop-blur-xl border border-slate-200/60 rounded-[2.5rem] p-6 sm:p-10 shadow-xl relative overflow-hidden">
-          
-          {/* Decorative background glow */}
-          <div className="absolute top-0 right-0 w-64 h-64 bg-emerald-100 rounded-full blur-3xl -z-10" />
+        <div className="bg-neutral-900 border border-neutral-800 rounded-[2rem] p-6 sm:p-10 shadow-2xl relative">
           
           <div className="mb-10">
-            <h2 className="text-2xl font-bold mb-2 flex items-center gap-2 text-slate-800">
-              <Smile className="w-6 h-6 text-emerald-500" /> Let's get to know you
+            <h2 className="text-2xl font-bold mb-2 flex items-center gap-2 text-white">
+              <Smile className="w-6 h-6 text-emerald-400" /> Let's get to know you
             </h2>
-            <p className="text-slate-500 text-sm">
+            <p className="text-neutral-400 text-sm">
               We just need a few details to customize your experience.
             </p>
           </div>
 
           {error && (
-            <div className="mb-8 p-4 bg-red-50 border border-red-200 text-red-600 rounded-2xl text-sm flex items-center gap-3">
+            <div className="mb-8 p-4 bg-red-500/10 border border-red-500/20 text-red-400 rounded-2xl text-sm flex items-center gap-3">
               <span>⚠️</span> {error}
             </div>
           )}
 
           <form onSubmit={handleSubmit} className="space-y-8">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-10">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-8">
               
-              {/* Full Name */}
+              {/* 1. Full Name */}
               <div className="space-y-3 md:col-span-2 group">
-                <label className="text-sm font-semibold text-slate-700 ml-1">
-                  What's your full name? <span className="text-emerald-500">*</span>
+                <label className="text-sm font-semibold text-neutral-300 ml-1 flex items-center gap-2">
+                  <User className="w-4 h-4 text-emerald-500" /> What's your full name? <span className="text-emerald-500">*</span>
                 </label>
                 <input
                   type="text"
                   name="name"
-                  required
                   value={formData.name}
                   onChange={handleChange}
                   placeholder="e.g. Jane Doe"
-                  className="w-full bg-white border border-slate-200 rounded-2xl px-5 py-4 text-slate-900 focus:outline-none focus:ring-2 focus:ring-emerald-500/30 focus:border-emerald-500 transition-all placeholder:text-slate-400 shadow-sm"
+                  className="w-full bg-neutral-950 border border-neutral-800 rounded-2xl px-5 py-4 text-white focus:outline-none focus:ring-1 focus:ring-emerald-500 focus:border-emerald-500 transition-all placeholder:text-neutral-600 shadow-inner"
                 />
               </div>
 
-              {/* Email */}
+              {/* 2. Email */}
               <div className="space-y-3">
-                <label className="text-sm font-semibold text-slate-700 ml-1">
-                  Your email address <span className="text-emerald-500">*</span>
+                <label className="text-sm font-semibold text-neutral-300 ml-1 flex items-center gap-2">
+                  <Mail className="w-4 h-4 text-emerald-500" /> Email address <span className="text-emerald-500">*</span>
                 </label>
                 <input
                   type="email"
                   name="email"
-                  required
                   value={formData.email}
                   onChange={handleChange}
                   placeholder="hello@example.com"
-                  className="w-full bg-white border border-slate-200 rounded-2xl px-5 py-4 text-slate-900 focus:outline-none focus:ring-2 focus:ring-emerald-500/30 focus:border-emerald-500 transition-all placeholder:text-slate-400 shadow-sm"
+                  className="w-full bg-neutral-950 border border-neutral-800 rounded-2xl px-5 py-4 text-white focus:outline-none focus:ring-1 focus:ring-emerald-500 focus:border-emerald-500 transition-all placeholder:text-neutral-600 shadow-inner"
                 />
               </div>
 
-              {/* Age */}
+              {/* 3. Phone Number */}
               <div className="space-y-3">
-                <label className="text-sm font-semibold text-slate-700 ml-1">
-                  How old are you? <span className="text-emerald-500">*</span>
+                <label className="text-sm font-semibold text-neutral-300 ml-1 flex items-center gap-2">
+                  <Phone className="w-4 h-4 text-emerald-500" /> Phone number <span className="text-emerald-500">*</span>
                 </label>
                 <input
-                  type="number"
-                  name="age"
-                  required
-                  min="1"
-                  max="100"
-                  value={formData.age}
+                  type="tel"
+                  name="phone"
+                  value={formData.phone}
                   onChange={handleChange}
-                  placeholder="25"
-                  className="w-full bg-white border border-slate-200 rounded-2xl px-5 py-4 text-slate-900 focus:outline-none focus:ring-2 focus:ring-emerald-500/30 focus:border-emerald-500 transition-all placeholder:text-slate-400 shadow-sm"
+                  placeholder="+1 (555) 000-0000"
+                  className="w-full bg-neutral-950 border border-neutral-800 rounded-2xl px-5 py-4 text-white focus:outline-none focus:ring-1 focus:ring-emerald-500 focus:border-emerald-500 transition-all placeholder:text-neutral-600 shadow-inner"
                 />
               </div>
 
-              {/* Heard From */}
-              <div className="space-y-3 md:col-span-2">
-                <label className="text-sm font-semibold text-slate-700 ml-1">
-                  How did you find us?
-                </label>
-                <select
-                  name="heardFrom"
-                  value={formData.heardFrom}
-                  onChange={handleChange}
-                  className="w-full bg-white border border-slate-200 rounded-2xl px-5 py-4 text-slate-900 focus:outline-none focus:ring-2 focus:ring-emerald-500/30 focus:border-emerald-500 transition-all appearance-none cursor-pointer shadow-sm"
-                >
-                  <option value="" disabled>Select an option...</option>
-                  <option value="Friend/Word of Mouth">Friend / Word of Mouth</option>
-                  <option value="Instagram">Instagram</option>
-                  <option value="Facebook">Facebook</option>
-                  <option value="Other">Other</option>
-                </select>
-              </div>
-
-              {/* Proficiency - Card Selection */}
+              {/* 4. Proficiency - Card Selection */}
               <div className="space-y-4 md:col-span-2">
-                <label className="text-sm font-semibold text-slate-700 ml-1 flex items-center gap-2">
+                <label className="text-sm font-semibold text-neutral-300 ml-1 flex items-center gap-2">
                   <Trophy className="w-4 h-4 text-amber-500" /> How would you rate your skills? <span className="text-emerald-500">*</span>
                 </label>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
@@ -221,10 +205,10 @@ export default function Register() {
                     <div
                       key={level}
                       onClick={() => handleSelect('proficiency', level)}
-                      className={`cursor-pointer rounded-2xl p-4 text-center border-2 transition-all duration-300 ${
+                      className={`cursor-pointer rounded-2xl p-4 text-center border transition-all duration-200 ${
                         formData.proficiency === level 
-                        ? 'border-emerald-500 bg-emerald-50 text-emerald-700 shadow-sm' 
-                        : 'border-slate-200 bg-slate-50 text-slate-500 hover:border-slate-300 hover:bg-slate-100'
+                        ? 'border-emerald-500 bg-emerald-500/10 text-emerald-400 shadow-[0_0_15px_rgba(16,185,129,0.15)]' 
+                        : 'border-neutral-800 bg-neutral-950 text-neutral-400 hover:border-neutral-700 hover:bg-neutral-800'
                       }`}
                     >
                       <span className="font-medium text-sm">{level}</span>
@@ -233,42 +217,42 @@ export default function Register() {
                 </div>
               </div>
 
-              {/* Duration - Card Selection */}
+              {/* 5. Duration - Card Selection */}
               <div className="space-y-4 md:col-span-2">
-                <label className="text-sm font-semibold text-slate-700 ml-1 flex items-center gap-2">
-                  <Clock className="w-4 h-4 text-blue-500" /> How long have you been playing? <span className="text-emerald-500">*</span>
+                <label className="text-sm font-semibold text-neutral-300 ml-1 flex items-center gap-2">
+                  <Clock className="w-4 h-4 text-blue-400" /> How long have you been playing? <span className="text-emerald-500">*</span>
                 </label>
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-                  {['< 1 year', '1-3 years', '3-5 years', '5-10 years'].map((time) => (
+                <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
+                  {['< 1 year', '1-3 years', '3-5 years', '5-10 years', '10+ years'].map((time) => (
                     <div
                       key={time}
                       onClick={() => handleSelect('duration', time)}
-                      className={`cursor-pointer rounded-2xl p-4 text-center border-2 transition-all duration-300 ${
+                      className={`cursor-pointer rounded-2xl p-3 text-center border transition-all duration-200 flex items-center justify-center ${
                         formData.duration === time 
-                        ? 'border-emerald-500 bg-emerald-50 text-emerald-700 shadow-sm' 
-                        : 'border-slate-200 bg-slate-50 text-slate-500 hover:border-slate-300 hover:bg-slate-100'
+                        ? 'border-emerald-500 bg-emerald-500/10 text-emerald-400 shadow-[0_0_15px_rgba(16,185,129,0.15)]' 
+                        : 'border-neutral-800 bg-neutral-950 text-neutral-400 hover:border-neutral-700 hover:bg-neutral-800'
                       }`}
                     >
-                      <span className="font-medium text-sm">{time}</span>
+                      <span className="font-medium text-xs sm:text-sm">{time}</span>
                     </div>
                   ))}
                 </div>
               </div>
 
-              {/* Gear - Pill Selection */}
+              {/* 6. Non-marking shoes - Pill Selection */}
               <div className="space-y-4 md:col-span-2">
-                <label className="text-sm font-semibold text-slate-700 ml-1 flex items-center gap-2">
-                  <Zap className="w-4 h-4 text-purple-500" /> Do you have non-marking shoes and a racket? <span className="text-emerald-500">*</span>
+                <label className="text-sm font-semibold text-neutral-300 ml-1 flex items-center gap-2">
+                  <Zap className="w-4 h-4 text-purple-400" /> Do you have non-marking shoes? <span className="text-emerald-500">*</span>
                 </label>
                 <div className="flex gap-4">
                   {['Yes', 'No'].map((ans) => (
                     <div
                       key={ans}
-                      onClick={() => handleSelect('gear', ans)}
-                      className={`cursor-pointer flex-1 rounded-2xl py-4 text-center border-2 transition-all duration-300 ${
-                        formData.gear === ans 
-                        ? 'border-emerald-500 bg-emerald-50 text-emerald-700 shadow-sm' 
-                        : 'border-slate-200 bg-slate-50 text-slate-500 hover:border-slate-300 hover:bg-slate-100'
+                      onClick={() => handleSelect('shoes', ans)}
+                      className={`cursor-pointer flex-1 rounded-2xl py-4 text-center border transition-all duration-200 ${
+                        formData.shoes === ans 
+                        ? 'border-emerald-500 bg-emerald-500/10 text-emerald-400 shadow-[0_0_15px_rgba(16,185,129,0.15)]' 
+                        : 'border-neutral-800 bg-neutral-950 text-neutral-400 hover:border-neutral-700 hover:bg-neutral-800'
                       }`}
                     >
                       <span className="font-bold text-lg">{ans}</span>
@@ -276,17 +260,42 @@ export default function Register() {
                   ))}
                 </div>
               </div>
+
+              {/* 7. Heard From */}
+              <div className="space-y-3 md:col-span-2">
+                <label className="text-sm font-semibold text-neutral-300 ml-1">
+                  How did you find us? <span className="text-emerald-500">*</span>
+                </label>
+                <div className="relative">
+                  <select
+                    name="heardFrom"
+                    value={formData.heardFrom}
+                    onChange={handleChange}
+                    className="w-full bg-neutral-950 border border-neutral-800 rounded-2xl px-5 py-4 text-white focus:outline-none focus:ring-1 focus:ring-emerald-500 focus:border-emerald-500 transition-all appearance-none cursor-pointer shadow-inner"
+                  >
+                    <option value="" disabled className="text-neutral-600">Select an option...</option>
+                    <option value="Friend/Word of Mouth">Friend / Word of Mouth</option>
+                    <option value="Instagram">Instagram</option>
+                    <option value="Facebook">Facebook</option>
+                    <option value="Other">Other</option>
+                  </select>
+                  <div className="absolute inset-y-0 right-5 flex items-center pointer-events-none">
+                    <svg className="w-4 h-4 text-neutral-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg>
+                  </div>
+                </div>
+              </div>
+
             </div>
 
-            <div className="pt-8 mt-10 border-t border-slate-100">
+            <div className="pt-8 mt-10 border-t border-neutral-800">
               <button
                 type="submit"
                 disabled={isLoading}
-                className="w-full py-5 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-white font-bold text-lg rounded-2xl transition-all shadow-[0_4px_14px_0_rgba(16,185,129,0.39)] flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed hover:-translate-y-0.5"
+                className="w-full py-5 bg-gradient-to-r from-emerald-500 to-cyan-500 hover:from-emerald-400 hover:to-cyan-400 text-black font-black text-lg rounded-2xl transition-all shadow-[0_0_20px_rgba(16,185,129,0.3)] flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed hover:shadow-[0_0_30px_rgba(16,185,129,0.5)] hover:-translate-y-0.5"
               >
                 {isLoading ? (
                   <>
-                    <Loader2 className="w-6 h-6 animate-spin" />
+                    <Loader2 className="w-6 h-6 animate-spin text-black" />
                     Securing your spot...
                   </>
                 ) : (
@@ -296,6 +305,10 @@ export default function Register() {
             </div>
           </form>
         </div>
+        
+        <p className="text-center text-neutral-600 text-sm mt-8 pb-8">
+          © {new Date().getFullYear()} The Weekend Baddie. All rights reserved.
+        </p>
       </div>
     </div>
   );

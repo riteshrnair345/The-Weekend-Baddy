@@ -9,10 +9,10 @@ export async function GET() {
       return {
         name: player.name,
         email: player.email,
-        age: player.age,
+        phone: player.phone,
         proficiency: player.proficiency,
         duration: player.duration,
-        gear: player.gear,
+        shoes: player.shoes,
         checkInTime: player.timeWhenCheckedIn,
         status: player.checkInStatus
       };

@@ -14,10 +14,10 @@ export interface Player {
   qrId: string; // The unique ID for the QR code
   name: string;
   email: string;
-  age: number;
+  phone: string;
   proficiency: string;
   duration: string;
-  gear: string;
+  shoes: string;
   heardFrom: string;
   firstSeen: string; // ISO timestamp
   lastActive: string; // ISO timestamp

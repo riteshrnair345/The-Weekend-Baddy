@@ -5,9 +5,9 @@ import nodemailer from 'nodemailer';
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { name, email, age, proficiency, duration, gear, heardFrom } = body;
+    const { name, email, phone, proficiency, duration, shoes, heardFrom } = body;
 
-    if (!name || !email || !age) {
+    if (!name || !email || !phone) {
       return NextResponse.json({ success: false, error: 'Missing required fields' }, { status: 400 });
     }
 
@@ -23,10 +23,10 @@ export async function POST(request: Request) {
       player = {
         ...player,
         name,
-        age: parseInt(age, 10),
+        phone,
         proficiency,
         duration,
-        gear,
+        shoes,
         heardFrom,
         checkInStatus: 'Pending', // Reset to pending for the new event
       };
@@ -43,10 +43,10 @@ export async function POST(request: Request) {
         qrId,
         name,
         email,
-        age: parseInt(age, 10),
+        phone,
         proficiency,
         duration,
-        gear,
+        shoes,
         heardFrom,
         firstSeen: now,
         lastActive: now,
