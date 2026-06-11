@@ -380,7 +380,7 @@ export default function Register() {
                 ) : (
                   <>
                     <CreditCard className="w-6 h-6" />
-                    Pay ₹150 with GPay
+                    Pay
                   </>
                 )}
               </button>
