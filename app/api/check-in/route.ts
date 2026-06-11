@@ -40,6 +40,9 @@ export async function POST(request: Request) {
       success: true, 
       message: 'Check-in successful', 
       name: player.name,
+      age: player.age,
+      proficiency: player.proficiency,
+      duration: player.duration,
       time: now
     });
 

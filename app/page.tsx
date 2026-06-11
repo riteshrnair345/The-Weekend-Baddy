@@ -172,6 +172,7 @@ function ScannerView() {
   const [scanStatus, setScanStatus] = useState<"idle" | "scanning" | "success" | "error">("idle");
   const [message, setMessage] = useState("");
   const [participantName, setParticipantName] = useState("");
+  const [playerInfo, setPlayerInfo] = useState<{age?: number, proficiency?: string, duration?: string} | null>(null);
   const scannerRef = useRef<Html5Qrcode | null>(null);
 
   useEffect(() => {
@@ -244,14 +245,21 @@ function ScannerView() {
       if (result.success) {
         setScanStatus("success");
         setParticipantName(result.name || "Participant");
+        setPlayerInfo({
+          age: result.age,
+          proficiency: result.proficiency,
+          duration: result.duration
+        });
         setMessage(result.message || "Check-in successful");
       } else {
         setScanStatus("error");
+        setPlayerInfo(null);
         setMessage(result.error || "Invalid ticket");
       }
     } catch (error) {
       console.error(error);
       setScanStatus("error");
+      setPlayerInfo(null);
       setMessage("Network error or invalid response");
     }
   };
@@ -283,7 +291,7 @@ function ScannerView() {
           
           {/* Overlay for processing/results */}
           {scanStatus !== "idle" && (
-            <div className="absolute inset-0 z-10 flex flex-col items-center justify-center bg-black/80 backdrop-blur-sm p-6 text-center animate-in fade-in duration-200">
+            <div className="absolute inset-0 z-10 flex flex-col items-center justify-center bg-black/85 backdrop-blur-sm p-6 text-center animate-in fade-in duration-200">
               {scanStatus === "scanning" && (
                 <>
                   <Loader2 className="w-12 h-12 text-emerald-400 animate-spin mb-4" />
@@ -292,9 +300,18 @@ function ScannerView() {
               )}
               {scanStatus === "success" && (
                 <>
-                  <CheckCircle className="w-16 h-16 text-emerald-400 mb-4 animate-in zoom-in" />
+                  <CheckCircle className="w-12 h-12 text-emerald-400 mb-3 animate-in zoom-in" />
                   <p className="text-2xl font-bold text-white mb-1">{participantName}</p>
-                  <p className="text-emerald-400 font-medium">{message}</p>
+                  <p className="text-emerald-400 font-medium text-sm mb-4">{message}</p>
+                  
+                  {playerInfo && (
+                    <div className="bg-neutral-800/50 border border-emerald-500/30 rounded-xl p-3 w-full mb-4 text-left grid grid-cols-2 gap-2 text-sm">
+                      <div className="text-neutral-400 text-xs">Age: <span className="text-white text-sm block">{playerInfo.age || 'N/A'}</span></div>
+                      <div className="text-neutral-400 text-xs">Skill: <span className="text-white text-sm block">{playerInfo.proficiency || 'N/A'}</span></div>
+                      <div className="text-neutral-400 text-xs col-span-2">Experience: <span className="text-white text-sm block">{playerInfo.duration || 'N/A'}</span></div>
+                    </div>
+                  )}
+
                   <button 
                     onClick={() => {
                       setScanStatus("idle");
@@ -302,9 +319,9 @@ function ScannerView() {
                         scannerRef.current.resume();
                       }
                     }}
-                    className="mt-8 px-6 py-2 bg-neutral-800 hover:bg-neutral-700 text-white rounded-full font-medium transition-colors border border-neutral-700"
+                    className="w-full py-3 bg-emerald-500 hover:bg-emerald-400 text-black rounded-xl font-bold transition-colors shadow-[0_0_15px_rgba(16,185,129,0.3)]"
                   >
-                    Scan Next
+                    Scan Next Player
                   </button>
                 </>
               )}
