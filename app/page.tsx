@@ -2,7 +2,7 @@
 
 import { useEffect, useState, useRef } from "react";
 import { Html5Qrcode } from "html5-qrcode";
-import { Camera, Users, CheckCircle, XCircle, RefreshCw, Loader2, Lock, LogOut, Trash2 } from "lucide-react";
+import { Camera, Users, CheckCircle, XCircle, RefreshCw, Loader2, Lock, LogOut, Trash2, Trophy, Clock, Phone, Zap } from "lucide-react";
 
 
 const ADMIN_PIN = process.env.NEXT_PUBLIC_ADMIN_PIN || "0000";
@@ -19,7 +19,7 @@ type RosterItem = {
 };
 
 export default function WeekendBaddieApp() {
-  const [activeTab, setActiveTab] = useState<"scanner" | "dashboard">("scanner");
+  const [activeTab, setActiveTab] = useState<"scanner" | "dashboard">("dashboard");
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isLoadingAuth, setIsLoadingAuth] = useState(true);
 
@@ -39,8 +39,8 @@ export default function WeekendBaddieApp() {
 
   if (isLoadingAuth) {
     return (
-      <div className="min-h-screen bg-neutral-950 flex items-center justify-center">
-        <Loader2 className="w-8 h-8 text-emerald-400 animate-spin" />
+      <div className="min-h-screen bg-[#fafafa] flex items-center justify-center">
+        <Loader2 className="w-8 h-8 text-indigo-500 animate-spin" />
       </div>
     );
   }
@@ -50,49 +50,55 @@ export default function WeekendBaddieApp() {
   }
 
   return (
-    <div className="min-h-screen bg-neutral-950 text-neutral-100 font-sans selection:bg-emerald-500/30">
+    <div className="min-h-screen bg-[#fafafa] text-slate-800 font-sans selection:bg-indigo-100 relative overflow-hidden">
+      
+      {/* Soft Background Pattern Mesh */}
+      <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] rounded-full bg-pink-100/60 blur-[120px] pointer-events-none" />
+      <div className="absolute top-[40%] right-[-10%] w-[40%] h-[40%] rounded-full bg-indigo-100/60 blur-[120px] pointer-events-none" />
+      <div className="absolute bottom-[-10%] left-[20%] w-[30%] h-[30%] rounded-full bg-amber-50/60 blur-[100px] pointer-events-none" />
+
       {/* Header */}
-      <header className="sticky top-0 z-10 bg-neutral-900/80 backdrop-blur-md border-b border-neutral-800">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <header className="sticky top-0 z-20 bg-white/80 backdrop-blur-xl border-b border-slate-200/50 shadow-sm">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
-            <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-emerald-400 to-cyan-500 flex items-center justify-center">
-                <span className="text-neutral-950 font-bold text-sm">WB</span>
+            <div className="flex items-center gap-3">
+              <div className="w-9 h-9 rounded-full bg-gradient-to-tr from-indigo-500 to-purple-500 flex items-center justify-center shadow-sm">
+                <span className="text-white font-bold text-sm">WB</span>
               </div>
-              <h1 className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-emerald-600 to-teal-500 drop-shadow-sm">
-                The Weekend Baddy
+              <h1 className="text-xl font-bold text-slate-800 tracking-tight hidden sm:block">
+                The Weekend Baddie
               </h1>
             </div>
             
             <nav className="flex items-center gap-4">
-              <div className="flex space-x-1 bg-neutral-800/50 p-1 rounded-lg">
-                <button
-                  onClick={() => setActiveTab("scanner")}
-                  className={`flex items-center gap-2 px-3 py-1.5 rounded-md text-sm font-medium transition-all ${
-                    activeTab === "scanner" 
-                      ? "bg-neutral-700 text-white shadow-sm" 
-                      : "text-neutral-400 hover:text-neutral-200 hover:bg-neutral-800"
-                  }`}
-                >
-                  <Camera className="w-4 h-4" />
-                  <span className="hidden sm:inline">Scanner</span>
-                </button>
+              <div className="flex space-x-1 bg-slate-100 p-1 rounded-xl border border-slate-200/50">
                 <button
                   onClick={() => setActiveTab("dashboard")}
-                  className={`flex items-center gap-2 px-3 py-1.5 rounded-md text-sm font-medium transition-all ${
+                  className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm font-semibold transition-all ${
                     activeTab === "dashboard" 
-                      ? "bg-neutral-700 text-white shadow-sm" 
-                      : "text-neutral-400 hover:text-neutral-200 hover:bg-neutral-800"
+                      ? "bg-white text-indigo-600 shadow-sm border border-slate-200/50" 
+                      : "text-slate-500 hover:text-slate-700 hover:bg-slate-200/50"
                   }`}
                 >
                   <Users className="w-4 h-4" />
                   <span className="hidden sm:inline">Dashboard</span>
                 </button>
+                <button
+                  onClick={() => setActiveTab("scanner")}
+                  className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm font-semibold transition-all ${
+                    activeTab === "scanner" 
+                      ? "bg-white text-indigo-600 shadow-sm border border-slate-200/50" 
+                      : "text-slate-500 hover:text-slate-700 hover:bg-slate-200/50"
+                  }`}
+                >
+                  <Camera className="w-4 h-4" />
+                  <span className="hidden sm:inline">Scanner</span>
+                </button>
               </div>
               <button
                 onClick={handleLogout}
                 title="Lock App"
-                className="text-neutral-500 hover:text-neutral-300 transition-colors p-1"
+                className="text-slate-400 hover:text-slate-600 transition-colors p-2 rounded-full hover:bg-slate-100"
               >
                 <LogOut className="w-5 h-5" />
               </button>
@@ -102,7 +108,7 @@ export default function WeekendBaddieApp() {
       </header>
 
       {/* Main Content */}
-      <main className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <main className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 relative z-10">
         {activeTab === "scanner" ? <ScannerView /> : <DashboardView />}
       </main>
     </div>
@@ -125,14 +131,17 @@ function LoginView({ onLogin }: { onLogin: () => void }) {
   };
 
   return (
-    <div className="min-h-screen bg-neutral-950 flex flex-col items-center justify-center p-4">
-      <div className="w-full max-w-sm bg-neutral-900 border border-neutral-800 rounded-2xl p-8 shadow-xl animate-in fade-in zoom-in-95 duration-300">
-        <div className="w-12 h-12 rounded-full bg-neutral-800/50 flex items-center justify-center mx-auto mb-6">
-          <Lock className="w-6 h-6 text-emerald-400" />
+    <div className="min-h-screen bg-[#fafafa] flex flex-col items-center justify-center p-4 relative overflow-hidden">
+      <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-5 mix-blend-multiply pointer-events-none" />
+      <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-indigo-200/40 rounded-full blur-[100px] pointer-events-none" />
+
+      <div className="w-full max-w-sm bg-white/90 backdrop-blur-xl border border-white/50 rounded-[2.5rem] p-8 shadow-[0_8px_40px_rgb(0,0,0,0.04)] animate-in fade-in zoom-in-95 duration-300 relative z-10">
+        <div className="w-14 h-14 rounded-2xl bg-indigo-50 border border-indigo-100 flex items-center justify-center mx-auto mb-6 shadow-sm">
+          <Lock className="w-7 h-7 text-indigo-500" />
         </div>
-        <h1 className="text-2xl font-bold text-center text-white mb-2">Restricted Access</h1>
-        <p className="text-center text-neutral-400 mb-8 text-sm">
-          Please enter the organizer PIN to access the scanner and dashboard.
+        <h1 className="text-2xl font-black text-center text-slate-800 mb-2 tracking-tight">Admin Access</h1>
+        <p className="text-center text-slate-500 mb-8 text-sm font-medium">
+          Please enter your secure PIN to access the management portal.
         </p>
 
         <form onSubmit={handleSubmit}>
@@ -146,23 +155,21 @@ function LoginView({ onLogin }: { onLogin: () => void }) {
                 setPin(e.target.value);
                 setError(false);
               }}
-              placeholder="Enter PIN"
-              className={`w-full bg-neutral-950 border ${
-                error ? "border-red-500/50 focus:border-red-500" : "border-neutral-800 focus:border-emerald-500"
-              } rounded-xl px-4 py-3 text-center text-xl font-mono text-white placeholder:text-neutral-600 focus:outline-none focus:ring-1 ${
-                error ? "focus:ring-red-500" : "focus:ring-emerald-500"
-              } transition-colors`}
+              placeholder="••••"
+              className={`w-full bg-white border ${
+                error ? "border-rose-300 focus:border-rose-500 focus:ring-rose-500/10" : "border-slate-200 focus:border-indigo-400 focus:ring-indigo-500/10"
+              } rounded-2xl px-4 py-4 text-center text-2xl font-mono text-slate-800 placeholder:text-slate-300 focus:outline-none focus:ring-4 transition-all shadow-inner font-bold`}
               autoFocus
             />
             {error && (
-              <p className="text-red-400 text-sm text-center mt-2 animate-in slide-in-from-top-1">
+              <p className="text-rose-500 text-sm font-semibold text-center mt-3 animate-in slide-in-from-top-1">
                 Incorrect PIN. Please try again.
               </p>
             )}
           </div>
           <button
             type="submit"
-            className="w-full bg-gradient-to-r from-emerald-500 to-cyan-500 hover:from-emerald-400 hover:to-cyan-400 text-neutral-950 font-bold py-3 px-4 rounded-xl transition-all shadow-[0_0_20px_rgba(16,185,129,0.2)] hover:shadow-[0_0_25px_rgba(16,185,129,0.4)]"
+            className="w-full bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-4 px-4 rounded-2xl transition-all shadow-[0_8px_20px_rgba(99,102,241,0.25)] hover:shadow-[0_12px_25px_rgba(99,102,241,0.35)] hover:-translate-y-0.5"
           >
             Unlock App
           </button>
@@ -200,7 +207,6 @@ function ScannerView() {
       } catch (err: any) {
         const errMsg = err?.toString() || "";
         if (errMsg.includes("already under transition")) {
-          // Ignore React 18 StrictMode double-mounting issue
           return;
         }
         console.error("Failed to start scanner", err);
@@ -211,14 +217,12 @@ function ScannerView() {
 
     startScanner();
 
-    // Cleanup on unmount
     return () => {
       try {
         if (scannerRef.current?.isScanning) {
           scannerRef.current.stop().catch(() => {});
         }
       } catch (e) {
-        // Ignore stop errors on unmount
       }
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -227,7 +231,6 @@ function ScannerView() {
   const onScanSuccess = async (decodedText: string) => {
     if (scanStatus === "scanning" || scanStatus === "success") return;
     
-    // Temporarily stop scanning to process
     if (scannerRef.current?.isScanning) {
       await scannerRef.current.pause();
     }
@@ -258,102 +261,114 @@ function ScannerView() {
         setMessage(result.message || "Check-in successful");
       } else {
         setScanStatus("error");
-        setPlayerInfo(null);
         setMessage(result.error || "Invalid ticket");
       }
-    } catch (error) {
-      console.error(error);
+    } catch (err) {
       setScanStatus("error");
-      setPlayerInfo(null);
-      setMessage("Network error or invalid response");
+      setMessage("Network error. Try again.");
     }
   };
 
   const onScanFailure = (error: any) => {
-    // continuously failing when no QR code is in view, ignore
+    // Ignore frequent failed scans until a code is caught
+  };
+
+  const resumeScanning = async () => {
+    setScanStatus("idle");
+    setMessage("");
+    setParticipantName("");
+    setPlayerInfo(null);
+    if (scannerRef.current?.getState() === 3) { // PAUSED
+      await scannerRef.current.resume();
+    }
   };
 
   return (
-    <div className="flex flex-col items-center justify-center animate-in fade-in zoom-in-95 duration-300">
-      <div className="w-full max-w-sm bg-neutral-900 rounded-2xl overflow-hidden border border-neutral-800 shadow-xl">
-        <div className="p-4 bg-neutral-800/50 border-b border-neutral-800 flex justify-between items-center">
-          <h2 className="text-lg font-semibold flex items-center gap-2">
-            <Camera className="w-5 h-5 text-emerald-400" />
-            Scan Ticket
-          </h2>
-          <div className="flex items-center gap-2">
-            <span className="relative flex h-2.5 w-2.5">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
-            </span>
-            <span className="text-xs text-neutral-400 font-medium tracking-wide uppercase">Live</span>
-          </div>
-        </div>
-        
-        {/* Scanner container */}
-        <div className="relative bg-black aspect-square">
-          <div id="reader" className="w-full h-full"></div>
-          
-          {/* Overlay for processing/results */}
+    <div className="animate-in fade-in slide-in-from-bottom-4 duration-300 max-w-xl mx-auto">
+      <div className="mb-6">
+        <h2 className="text-2xl font-black text-slate-800 tracking-tight">QR Scanner</h2>
+        <p className="text-slate-500 text-sm font-medium mt-1">
+          Point camera at participant's digital ticket
+        </p>
+      </div>
+
+      <div className="bg-white border border-slate-200 rounded-[2.5rem] overflow-hidden shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
+        <div className="relative">
+          {/* Scanner view */}
+          <div id="reader" className="w-full min-h-[300px] bg-slate-900"></div>
+
+          {/* Overlay for status */}
           {scanStatus !== "idle" && (
-            <div className="absolute inset-0 z-10 flex flex-col items-center justify-center bg-black/85 backdrop-blur-sm p-6 text-center animate-in fade-in duration-200">
+            <div className="absolute inset-0 z-10 bg-white/95 backdrop-blur-sm flex flex-col items-center justify-center p-6 animate-in fade-in zoom-in-95 duration-200">
               {scanStatus === "scanning" && (
-                <>
-                  <Loader2 className="w-12 h-12 text-emerald-400 animate-spin mb-4" />
-                  <p className="text-lg font-medium text-white">{message}</p>
-                </>
+                <div className="flex flex-col items-center">
+                  <div className="w-16 h-16 bg-indigo-50 rounded-full flex items-center justify-center mb-4">
+                    <Loader2 className="w-8 h-8 text-indigo-500 animate-spin" />
+                  </div>
+                  <h3 className="text-xl font-bold text-slate-800 mb-1">Verifying</h3>
+                  <p className="text-slate-500 font-medium">{message}</p>
+                </div>
               )}
+
               {scanStatus === "success" && (
-                <>
-                  <CheckCircle className="w-12 h-12 text-emerald-400 mb-3 animate-in zoom-in" />
-                  <p className="text-2xl font-bold text-white mb-1">{participantName}</p>
-                  <p className="text-emerald-400 font-medium text-sm mb-4">{message}</p>
+                <div className="flex flex-col items-center text-center w-full max-w-sm">
+                  <div className="w-20 h-20 bg-emerald-50 rounded-full flex items-center justify-center mb-4 border border-emerald-100 shadow-sm">
+                    <CheckCircle className="w-10 h-10 text-emerald-500" />
+                  </div>
+                  <h3 className="text-2xl font-black text-slate-800 mb-1">{participantName}</h3>
+                  <p className="text-emerald-600 font-bold mb-6 bg-emerald-50 px-3 py-1 rounded-lg border border-emerald-100">{message}</p>
                   
                   {playerInfo && (
-                    <div className="bg-neutral-800/50 border border-emerald-500/30 rounded-xl p-3 w-full mb-4 text-left grid grid-cols-2 gap-2 text-sm">
-                      <div className="text-neutral-400 text-xs">Phone: <span className="text-white text-sm block">{playerInfo.phone || 'N/A'}</span></div>
-                      <div className="text-neutral-400 text-xs">Skill: <span className="text-white text-sm block">{playerInfo.proficiency || 'N/A'}</span></div>
-                      <div className="text-neutral-400 text-xs">Experience: <span className="text-white text-sm block">{playerInfo.duration || 'N/A'}</span></div>
-                      <div className="text-neutral-400 text-xs">Shoes: <span className="text-white text-sm block">{playerInfo.shoes || 'N/A'}</span></div>
+                    <div className="bg-slate-50 border border-slate-200 rounded-2xl p-4 w-full mb-6 text-left grid grid-cols-2 gap-y-4 gap-x-2">
+                      <div>
+                        <div className="flex items-center gap-1.5 text-slate-500 mb-1"><Phone className="w-3.5 h-3.5"/> <span className="text-xs font-bold uppercase tracking-wider">Phone</span></div>
+                        <span className="text-slate-800 font-semibold">{playerInfo.phone || 'N/A'}</span>
+                      </div>
+                      <div>
+                        <div className="flex items-center gap-1.5 text-slate-500 mb-1"><Trophy className="w-3.5 h-3.5"/> <span className="text-xs font-bold uppercase tracking-wider">Skill</span></div>
+                        <span className="text-slate-800 font-semibold">{playerInfo.proficiency || 'N/A'}</span>
+                      </div>
+                      <div>
+                        <div className="flex items-center gap-1.5 text-slate-500 mb-1"><Clock className="w-3.5 h-3.5"/> <span className="text-xs font-bold uppercase tracking-wider">Experience</span></div>
+                        <span className="text-slate-800 font-semibold">{playerInfo.duration || 'N/A'}</span>
+                      </div>
+                      <div>
+                        <div className="flex items-center gap-1.5 text-slate-500 mb-1"><Zap className="w-3.5 h-3.5"/> <span className="text-xs font-bold uppercase tracking-wider">Shoes</span></div>
+                        <span className="text-slate-800 font-semibold">{playerInfo.shoes || 'N/A'}</span>
+                      </div>
                     </div>
                   )}
 
-                  <button 
-                    onClick={() => {
-                      setScanStatus("idle");
-                      if (scannerRef.current?.getState() === 2 /* PAUSED */) {
-                        scannerRef.current.resume();
-                      }
-                    }}
-                    className="w-full py-3 bg-emerald-500 hover:bg-emerald-400 text-black rounded-xl font-bold transition-colors shadow-[0_0_15px_rgba(16,185,129,0.3)]"
+                  <button
+                    onClick={resumeScanning}
+                    className="w-full bg-slate-800 hover:bg-slate-900 text-white rounded-2xl py-4 font-bold transition-all shadow-md"
                   >
-                    Scan Next Player
+                    Scan Next Ticket
                   </button>
-                </>
+                </div>
               )}
+
               {scanStatus === "error" && (
-                <>
-                  <XCircle className="w-16 h-16 text-red-500 mb-4 animate-in zoom-in" />
-                  <p className="text-lg font-medium text-white mb-2">Scan Failed</p>
-                  <p className="text-red-400 text-sm">{message}</p>
-                  <button 
-                    onClick={() => {
-                      setScanStatus("idle");
-                      if (scannerRef.current?.getState() === 2 /* PAUSED */) {
-                        scannerRef.current.resume();
-                      }
-                    }}
-                    className="mt-8 px-6 py-2 bg-neutral-800 hover:bg-neutral-700 text-white rounded-full font-medium transition-colors border border-neutral-700"
+                <div className="flex flex-col items-center text-center">
+                  <div className="w-20 h-20 bg-rose-50 rounded-full flex items-center justify-center mb-4 border border-rose-100 shadow-sm">
+                    <XCircle className="w-10 h-10 text-rose-500" />
+                  </div>
+                  <h3 className="text-2xl font-black text-slate-800 mb-2">Invalid Ticket</h3>
+                  <p className="text-rose-600 font-bold mb-8 bg-rose-50 px-3 py-1 rounded-lg border border-rose-100">{message}</p>
+                  
+                  <button
+                    onClick={resumeScanning}
+                    className="mt-4 px-8 py-3 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl font-bold transition-colors shadow-sm"
                   >
                     Try Again
                   </button>
-                </>
+                </div>
               )}
             </div>
           )}
         </div>
-        <div className="p-4 bg-neutral-800/30 text-center">
-          <p className="text-sm text-neutral-400">Position the QR code within the frame</p>
+        <div className="p-5 bg-slate-50 border-t border-slate-100 text-center rounded-b-[2.5rem]">
+          <p className="text-sm font-medium text-slate-500">Position the QR code within the frame</p>
         </div>
       </div>
     </div>
@@ -413,92 +428,123 @@ function DashboardView() {
 
   return (
     <div className="animate-in fade-in slide-in-from-bottom-4 duration-300">
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
-        <div>
-          <h2 className="text-2xl font-bold">Live Roster</h2>
-          <p className="text-neutral-400 text-sm mt-1">
-            {checkedInCount} of {roster.length} participants checked in
-          </p>
+      
+      <div className="mb-8">
+        <h1 className="text-3xl sm:text-4xl font-black tracking-tight text-slate-800 mb-2">
+          Welcome back, Admin 👋
+        </h1>
+        <p className="text-slate-500 font-medium text-lg">
+          Here's what's happening with your roster today.
+        </p>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+        <div className="bg-white rounded-[2rem] p-6 border border-slate-200/60 shadow-[0_8px_30px_rgb(0,0,0,0.04)] flex items-center gap-5">
+          <div className="w-14 h-14 bg-indigo-50 rounded-2xl flex items-center justify-center border border-indigo-100">
+            <Users className="w-6 h-6 text-indigo-500" />
+          </div>
+          <div>
+            <p className="text-sm font-bold text-slate-500 uppercase tracking-wider mb-1">Total Registered</p>
+            <p className="text-3xl font-black text-slate-800">{roster.length}</p>
+          </div>
         </div>
-        <div className="flex items-center gap-2">
-          <button
-            onClick={handleReset}
-            disabled={loading || isResetting}
-            className="flex items-center gap-2 px-4 py-2 bg-red-500/10 hover:bg-red-500/20 text-red-500 disabled:opacity-50 rounded-lg font-medium transition-colors border border-red-500/20"
-          >
-            {isResetting ? <Loader2 className="w-4 h-4 animate-spin" /> : <Trash2 className="w-4 h-4" />}
-            <span className="hidden sm:inline">Clear Roster</span>
-          </button>
+
+        <div className="bg-white rounded-[2rem] p-6 border border-slate-200/60 shadow-[0_8px_30px_rgb(0,0,0,0.04)] flex items-center gap-5">
+          <div className="w-14 h-14 bg-emerald-50 rounded-2xl flex items-center justify-center border border-emerald-100">
+            <CheckCircle className="w-6 h-6 text-emerald-500" />
+          </div>
+          <div>
+            <p className="text-sm font-bold text-slate-500 uppercase tracking-wider mb-1">Checked In</p>
+            <p className="text-3xl font-black text-slate-800">{checkedInCount}</p>
+          </div>
+        </div>
+
+        <div className="flex flex-col gap-3 justify-center">
           <button
             onClick={fetchRoster}
             disabled={loading}
-            className="flex items-center gap-2 px-4 py-2 bg-neutral-800 hover:bg-neutral-700 disabled:opacity-50 text-white rounded-lg font-medium transition-colors border border-neutral-700"
+            className="flex items-center justify-center gap-2 px-6 py-4 bg-white hover:bg-slate-50 disabled:opacity-50 text-slate-700 rounded-2xl font-bold transition-all border border-slate-200 shadow-sm"
           >
-            <RefreshCw className={`w-4 h-4 ${loading && !isResetting ? "animate-spin" : ""}`} />
-            Refresh
+            <RefreshCw className={`w-5 h-5 ${loading && !isResetting ? "animate-spin text-indigo-500" : "text-slate-400"}`} />
+            Refresh Roster
+          </button>
+          
+          <button
+            onClick={handleReset}
+            disabled={loading || isResetting}
+            className="flex items-center justify-center gap-2 px-6 py-4 bg-rose-50 hover:bg-rose-100 text-rose-600 disabled:opacity-50 rounded-2xl font-bold transition-all border border-rose-100 shadow-sm"
+          >
+            {isResetting ? <Loader2 className="w-5 h-5 animate-spin" /> : <Trash2 className="w-5 h-5" />}
+            Clear Roster Data
           </button>
         </div>
       </div>
 
       {error ? (
-        <div className="p-6 bg-red-500/10 border border-red-500/20 rounded-xl text-center">
-          <XCircle className="w-8 h-8 text-red-400 mx-auto mb-3" />
-          <p className="text-red-400 font-medium">{error}</p>
+        <div className="p-6 bg-rose-50 border border-rose-200 rounded-[2rem] text-center shadow-sm">
+          <XCircle className="w-10 h-10 text-rose-500 mx-auto mb-3" />
+          <p className="text-rose-600 font-bold">{error}</p>
         </div>
       ) : (
-        <div className="bg-neutral-900 border border-neutral-800 rounded-xl overflow-hidden shadow-lg">
+        <div className="bg-white border border-slate-200/80 rounded-[2rem] overflow-hidden shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
+          <div className="px-6 py-5 border-b border-slate-100 bg-white flex justify-between items-center">
+            <h2 className="text-lg font-black text-slate-800">Live Roster</h2>
+          </div>
           <div className="overflow-x-auto">
             <table className="w-full text-left text-sm">
-              <thead className="bg-neutral-800/50 text-neutral-400 border-b border-neutral-800">
+              <thead className="bg-slate-50 text-slate-500 border-b border-slate-200">
                 <tr>
-                  <th className="px-6 py-4 font-medium">Participant</th>
-                  <th className="px-6 py-4 font-medium hidden md:table-cell">Details</th>
-                  <th className="px-6 py-4 font-medium">Check-in Status</th>
-                  <th className="px-6 py-4 font-medium hidden sm:table-cell">Time</th>
+                  <th className="px-6 py-4 font-bold uppercase tracking-wider text-xs">Participant</th>
+                  <th className="px-6 py-4 font-bold uppercase tracking-wider text-xs hidden md:table-cell">Details</th>
+                  <th className="px-6 py-4 font-bold uppercase tracking-wider text-xs">Status</th>
+                  <th className="px-6 py-4 font-bold uppercase tracking-wider text-xs hidden sm:table-cell">Check-in Time</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-neutral-800/50">
+              <tbody className="divide-y divide-slate-100">
                 {loading && roster.length === 0 ? (
                   <tr>
-                    <td colSpan={4} className="px-6 py-12 text-center">
-                      <Loader2 className="w-8 h-8 text-emerald-400 animate-spin mx-auto mb-3" />
-                      <p className="text-neutral-400">Loading roster...</p>
+                    <td colSpan={4} className="px-6 py-16 text-center">
+                      <Loader2 className="w-10 h-10 text-indigo-500 animate-spin mx-auto mb-4" />
+                      <p className="text-slate-500 font-medium">Loading participants...</p>
                     </td>
                   </tr>
                 ) : roster.length === 0 ? (
                   <tr>
-                    <td colSpan={4} className="px-6 py-12 text-center text-neutral-400">
+                    <td colSpan={4} className="px-6 py-16 text-center text-slate-500 font-medium">
+                      <div className="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <Users className="w-8 h-8 text-slate-400" />
+                      </div>
                       No participants registered yet.
                     </td>
                   </tr>
                 ) : (
                   roster.map((person, i) => (
-                    <tr key={i} className="hover:bg-neutral-800/30 transition-colors">
-                      <td className="px-6 py-4">
-                        <div className="font-medium text-neutral-200">{person.name}</div>
-                        <div className="text-neutral-500 text-xs mt-0.5">{person.email}</div>
+                    <tr key={i} className="hover:bg-slate-50/80 transition-colors">
+                      <td className="px-6 py-5">
+                        <div className="font-bold text-slate-800 text-base">{person.name}</div>
+                        <div className="text-slate-500 text-xs font-medium mt-1">{person.email}</div>
                       </td>
-                      <td className="px-6 py-4 hidden md:table-cell text-xs text-neutral-400 space-y-1">
-                        <div>Phone: <span className="text-neutral-200">{person.phone || '-'}</span></div>
-                        <div>Skill: <span className="text-neutral-200">{person.proficiency || '-'}</span></div>
-                        <div>Exp: <span className="text-neutral-200">{person.duration || '-'}</span></div>
-                        <div>Shoes: <span className="text-neutral-200">{person.shoes || '-'}</span></div>
+                      <td className="px-6 py-5 hidden md:table-cell text-xs text-slate-500 font-medium space-y-1.5">
+                        <div className="flex items-center gap-1.5"><Phone className="w-3.5 h-3.5 text-indigo-400"/> <span className="text-slate-700">{person.phone || '-'}</span></div>
+                        <div className="flex items-center gap-1.5"><Trophy className="w-3.5 h-3.5 text-amber-400"/> <span className="text-slate-700">{person.proficiency || '-'}</span></div>
+                        <div className="flex items-center gap-1.5"><Clock className="w-3.5 h-3.5 text-sky-400"/> <span className="text-slate-700">{person.duration || '-'}</span></div>
+                        <div className="flex items-center gap-1.5"><Zap className="w-3.5 h-3.5 text-emerald-400"/> <span className="text-slate-700">{person.shoes || '-'}</span></div>
                       </td>
-                      <td className="px-6 py-4">
+                      <td className="px-6 py-5">
                         {person.status === "Checked In" ? (
-                          <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
-                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                          <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold bg-emerald-50 text-emerald-600 border border-emerald-100 shadow-sm">
+                            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
                             Checked In
                           </span>
                         ) : (
-                          <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-neutral-500/10 text-neutral-400 border border-neutral-500/20">
-                            <span className="w-1.5 h-1.5 rounded-full bg-neutral-400"></span>
+                          <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-100 text-slate-600 border border-slate-200 shadow-sm">
+                            <span className="w-2 h-2 rounded-full bg-slate-400"></span>
                             Pending
                           </span>
                         )}
                       </td>
-                      <td className="px-6 py-4 hidden sm:table-cell text-neutral-400">
-                        {person.checkInTime ? new Date(person.checkInTime).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) : "-"}
+                      <td className="px-6 py-5 hidden sm:table-cell text-slate-600 font-medium text-sm">
+                        {person.checkInTime ? new Date(person.checkInTime).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) : '-'}
                       </td>
                     </tr>
                   ))

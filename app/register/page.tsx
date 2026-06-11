@@ -60,28 +60,31 @@ export default function Register() {
   };
 
   if (ticketData) {
-    const qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&color=10b981&bgcolor=0a0a0a&data=${encodeURIComponent(ticketData.qrId)}`;
+    const qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&color=6366f1&bgcolor=ffffff&data=${encodeURIComponent(ticketData.qrId)}`;
     
     return (
-      <div className="min-h-screen bg-neutral-950 text-neutral-100 flex flex-col items-center justify-center p-4 selection:bg-emerald-500/30">
-        <div className="max-w-md w-full bg-neutral-900 border border-neutral-800 rounded-3xl p-8 text-center space-y-6 shadow-2xl relative overflow-hidden">
+      <div className="min-h-screen bg-[#fafafa] text-slate-800 flex flex-col items-center justify-center p-4 selection:bg-indigo-200 relative overflow-hidden">
+        {/* Soft Background Mesh */}
+        <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] rounded-full bg-pink-200/40 blur-[100px] pointer-events-none" />
+        <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] rounded-full bg-indigo-200/40 blur-[100px] pointer-events-none" />
+        <div className="absolute top-[20%] right-[10%] w-[30%] h-[30%] rounded-full bg-amber-100/40 blur-[80px] pointer-events-none" />
+
+        <div className="max-w-md w-full bg-white/90 backdrop-blur-xl border border-white/50 rounded-[2.5rem] p-8 text-center space-y-6 shadow-[0_8px_40px_rgb(0,0,0,0.04)] relative z-10">
           
-          <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-emerald-500 to-cyan-500" />
-          
-          <div className="mx-auto w-20 h-20 bg-emerald-500/10 rounded-full flex items-center justify-center mb-4 shadow-[0_0_30px_rgba(16,185,129,0.2)] border border-emerald-500/20">
-            <CheckCircle className="w-10 h-10 text-emerald-400" />
+          <div className="mx-auto w-20 h-20 bg-indigo-50 rounded-full flex items-center justify-center mb-4 shadow-sm border border-indigo-100">
+            <CheckCircle className="w-10 h-10 text-indigo-500" />
           </div>
           
           <div>
-            <h1 className="text-3xl font-extrabold tracking-tight mb-2 text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400">
+            <h1 className="text-3xl font-extrabold tracking-tight mb-2 text-slate-800">
               You're In, {ticketData.name}! 🎉
             </h1>
-            <p className="text-neutral-400 text-sm">
+            <p className="text-slate-500 text-sm font-medium">
               We've emailed you a copy of your ticket. Get ready for an amazing weekend!
             </p>
           </div>
 
-          <div className="bg-black/50 p-4 rounded-3xl inline-block shadow-inner mx-auto border border-neutral-800 backdrop-blur-sm">
+          <div className="bg-white p-4 rounded-3xl inline-block shadow-sm mx-auto border border-slate-100">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img 
               src={qrCodeUrl} 
@@ -90,9 +93,9 @@ export default function Register() {
             />
           </div>
 
-          <div className="bg-emerald-500/10 border border-emerald-500/20 rounded-2xl p-4 flex items-start gap-3 text-left">
-            <Info className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
-            <p className="text-emerald-400/90 text-sm font-medium leading-relaxed">
+          <div className="bg-indigo-50 border border-indigo-100/50 rounded-2xl p-4 flex items-start gap-3 text-left">
+            <Info className="w-5 h-5 text-indigo-500 shrink-0 mt-0.5" />
+            <p className="text-indigo-700 text-sm font-medium leading-relaxed">
               Take a quick screenshot of this code to show at the entrance!
             </p>
           </div>
@@ -102,7 +105,7 @@ export default function Register() {
               setTicketData(null);
               setFormData({ name: '', email: '', phone: '', proficiency: '', duration: '', shoes: '', heardFrom: '' });
             }}
-            className="w-full bg-neutral-800 hover:bg-neutral-700 text-white font-bold py-4 rounded-2xl transition-all border border-neutral-700"
+            className="w-full bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold py-4 rounded-2xl transition-all shadow-sm"
           >
             Register another player
           </button>
@@ -112,37 +115,44 @@ export default function Register() {
   }
 
   return (
-    <div className="min-h-screen bg-neutral-950 text-neutral-100 p-4 sm:p-8 flex flex-col items-center justify-center selection:bg-emerald-500/30">
-      <div className="max-w-2xl w-full">
+    <div className="min-h-screen bg-[#fafafa] text-slate-800 p-4 sm:p-8 flex flex-col items-center justify-center selection:bg-indigo-200 relative overflow-hidden">
+      
+      {/* Soft Background Mesh */}
+      <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] rounded-full bg-rose-200/40 blur-[120px] pointer-events-none" />
+      <div className="absolute top-[40%] right-[-10%] w-[40%] h-[40%] rounded-full bg-indigo-200/40 blur-[120px] pointer-events-none" />
+      <div className="absolute bottom-[-10%] left-[20%] w-[30%] h-[30%] rounded-full bg-amber-100/40 blur-[100px] pointer-events-none" />
+      <div className="absolute top-[10%] right-[20%] w-[20%] h-[20%] rounded-full bg-emerald-100/40 blur-[80px] pointer-events-none" />
+
+      <div className="max-w-2xl w-full relative z-10 pt-4">
         
         {/* Header */}
-        <header className="mb-10 flex flex-col items-center justify-center pt-4">
-          <div className="w-16 h-16 bg-gradient-to-br from-emerald-500 to-cyan-500 rounded-3xl flex items-center justify-center font-black text-black shadow-[0_0_40px_rgba(16,185,129,0.3)] mb-6 rotate-3 hover:rotate-6 transition-transform">
+        <header className="mb-10 flex flex-col items-center justify-center">
+          <div className="w-16 h-16 bg-white rounded-3xl flex items-center justify-center font-black text-indigo-500 shadow-[0_8px_30px_rgb(0,0,0,0.06)] border border-slate-100 mb-6 rotate-3 hover:rotate-6 transition-transform">
             <span className="text-2xl">WB</span>
           </div>
-          <h1 className="text-4xl sm:text-5xl font-black tracking-tight text-white mb-3">
+          <h1 className="text-4xl sm:text-5xl font-black tracking-tight text-slate-800 mb-3 text-center">
             The Weekend Baddie
           </h1>
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-sm font-medium">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-indigo-50 border border-indigo-100 text-indigo-600 text-sm font-semibold shadow-sm">
             <Sparkles className="w-4 h-4" />
             Your complimentary trial awaits
           </div>
         </header>
 
         {/* Form Container */}
-        <div className="bg-neutral-900 border border-neutral-800 rounded-[2rem] p-6 sm:p-10 shadow-2xl relative">
+        <div className="bg-white/90 backdrop-blur-xl border border-white/60 rounded-[2.5rem] p-6 sm:p-10 shadow-[0_8px_40px_rgb(0,0,0,0.04)] relative">
           
           <div className="mb-10">
-            <h2 className="text-2xl font-bold mb-2 flex items-center gap-2 text-white">
-              <Smile className="w-6 h-6 text-emerald-400" /> Let's get to know you
+            <h2 className="text-2xl font-bold mb-2 flex items-center gap-2 text-slate-800">
+              <Smile className="w-6 h-6 text-indigo-500" /> Let's get to know you
             </h2>
-            <p className="text-neutral-400 text-sm">
+            <p className="text-slate-500 text-sm font-medium">
               We just need a few details to customize your experience.
             </p>
           </div>
 
           {error && (
-            <div className="mb-8 p-4 bg-red-500/10 border border-red-500/20 text-red-400 rounded-2xl text-sm flex items-center gap-3">
+            <div className="mb-8 p-4 bg-rose-50 border border-rose-100 text-rose-600 rounded-2xl text-sm font-medium flex items-center gap-3 shadow-sm">
               <span>⚠️</span> {error}
             </div>
           )}
@@ -151,9 +161,9 @@ export default function Register() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-8">
               
               {/* 1. Full Name */}
-              <div className="space-y-3 md:col-span-2 group">
-                <label className="text-sm font-semibold text-neutral-300 ml-1 flex items-center gap-2">
-                  <User className="w-4 h-4 text-emerald-500" /> What's your full name? <span className="text-emerald-500">*</span>
+              <div className="space-y-3 md:col-span-2">
+                <label className="text-sm font-bold text-slate-700 ml-1 flex items-center gap-2">
+                  <User className="w-4 h-4 text-indigo-400" /> What's your full name? <span className="text-rose-400">*</span>
                 </label>
                 <input
                   type="text"
@@ -161,14 +171,14 @@ export default function Register() {
                   value={formData.name}
                   onChange={handleChange}
                   placeholder="e.g. Jane Doe"
-                  className="w-full bg-neutral-950 border border-neutral-800 rounded-2xl px-5 py-4 text-white focus:outline-none focus:ring-1 focus:ring-emerald-500 focus:border-emerald-500 transition-all placeholder:text-neutral-600 shadow-inner"
+                  className="w-full bg-white border border-slate-200 rounded-2xl px-5 py-4 text-slate-800 focus:outline-none focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-400 transition-all placeholder:text-slate-400 shadow-sm font-medium"
                 />
               </div>
 
               {/* 2. Email */}
               <div className="space-y-3">
-                <label className="text-sm font-semibold text-neutral-300 ml-1 flex items-center gap-2">
-                  <Mail className="w-4 h-4 text-emerald-500" /> Email address <span className="text-emerald-500">*</span>
+                <label className="text-sm font-bold text-slate-700 ml-1 flex items-center gap-2">
+                  <Mail className="w-4 h-4 text-indigo-400" /> Email address <span className="text-rose-400">*</span>
                 </label>
                 <input
                   type="email"
@@ -176,14 +186,14 @@ export default function Register() {
                   value={formData.email}
                   onChange={handleChange}
                   placeholder="hello@example.com"
-                  className="w-full bg-neutral-950 border border-neutral-800 rounded-2xl px-5 py-4 text-white focus:outline-none focus:ring-1 focus:ring-emerald-500 focus:border-emerald-500 transition-all placeholder:text-neutral-600 shadow-inner"
+                  className="w-full bg-white border border-slate-200 rounded-2xl px-5 py-4 text-slate-800 focus:outline-none focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-400 transition-all placeholder:text-slate-400 shadow-sm font-medium"
                 />
               </div>
 
               {/* 3. Phone Number */}
               <div className="space-y-3">
-                <label className="text-sm font-semibold text-neutral-300 ml-1 flex items-center gap-2">
-                  <Phone className="w-4 h-4 text-emerald-500" /> Phone number <span className="text-emerald-500">*</span>
+                <label className="text-sm font-bold text-slate-700 ml-1 flex items-center gap-2">
+                  <Phone className="w-4 h-4 text-indigo-400" /> Phone number <span className="text-rose-400">*</span>
                 </label>
                 <input
                   type="tel"
@@ -191,27 +201,27 @@ export default function Register() {
                   value={formData.phone}
                   onChange={handleChange}
                   placeholder="+1 (555) 000-0000"
-                  className="w-full bg-neutral-950 border border-neutral-800 rounded-2xl px-5 py-4 text-white focus:outline-none focus:ring-1 focus:ring-emerald-500 focus:border-emerald-500 transition-all placeholder:text-neutral-600 shadow-inner"
+                  className="w-full bg-white border border-slate-200 rounded-2xl px-5 py-4 text-slate-800 focus:outline-none focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-400 transition-all placeholder:text-slate-400 shadow-sm font-medium"
                 />
               </div>
 
               {/* 4. Proficiency - Card Selection */}
               <div className="space-y-4 md:col-span-2">
-                <label className="text-sm font-semibold text-neutral-300 ml-1 flex items-center gap-2">
-                  <Trophy className="w-4 h-4 text-amber-500" /> How would you rate your skills? <span className="text-emerald-500">*</span>
+                <label className="text-sm font-bold text-slate-700 ml-1 flex items-center gap-2">
+                  <Trophy className="w-4 h-4 text-amber-400" /> How would you rate your skills? <span className="text-rose-400">*</span>
                 </label>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
                   {['Beginner', 'Amateur', 'Advanced', 'Professional'].map((level) => (
                     <div
                       key={level}
                       onClick={() => handleSelect('proficiency', level)}
-                      className={`cursor-pointer rounded-2xl p-4 text-center border transition-all duration-200 ${
+                      className={`cursor-pointer rounded-2xl p-4 text-center border-2 transition-all duration-200 font-bold ${
                         formData.proficiency === level 
-                        ? 'border-emerald-500 bg-emerald-500/10 text-emerald-400 shadow-[0_0_15px_rgba(16,185,129,0.15)]' 
-                        : 'border-neutral-800 bg-neutral-950 text-neutral-400 hover:border-neutral-700 hover:bg-neutral-800'
+                        ? 'border-indigo-500 bg-indigo-50 text-indigo-700 shadow-sm' 
+                        : 'border-transparent bg-slate-50 text-slate-500 hover:bg-slate-100 hover:text-slate-700 shadow-sm'
                       }`}
                     >
-                      <span className="font-medium text-sm">{level}</span>
+                      <span className="text-sm">{level}</span>
                     </div>
                   ))}
                 </div>
@@ -219,21 +229,21 @@ export default function Register() {
 
               {/* 5. Duration - Card Selection */}
               <div className="space-y-4 md:col-span-2">
-                <label className="text-sm font-semibold text-neutral-300 ml-1 flex items-center gap-2">
-                  <Clock className="w-4 h-4 text-blue-400" /> How long have you been playing? <span className="text-emerald-500">*</span>
+                <label className="text-sm font-bold text-slate-700 ml-1 flex items-center gap-2">
+                  <Clock className="w-4 h-4 text-sky-400" /> How long have you been playing? <span className="text-rose-400">*</span>
                 </label>
                 <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
                   {['< 1 year', '1-3 years', '3-5 years', '5-10 years', '10+ years'].map((time) => (
                     <div
                       key={time}
                       onClick={() => handleSelect('duration', time)}
-                      className={`cursor-pointer rounded-2xl p-3 text-center border transition-all duration-200 flex items-center justify-center ${
+                      className={`cursor-pointer rounded-2xl p-3 text-center border-2 transition-all duration-200 flex items-center justify-center font-bold ${
                         formData.duration === time 
-                        ? 'border-emerald-500 bg-emerald-500/10 text-emerald-400 shadow-[0_0_15px_rgba(16,185,129,0.15)]' 
-                        : 'border-neutral-800 bg-neutral-950 text-neutral-400 hover:border-neutral-700 hover:bg-neutral-800'
+                        ? 'border-indigo-500 bg-indigo-50 text-indigo-700 shadow-sm' 
+                        : 'border-transparent bg-slate-50 text-slate-500 hover:bg-slate-100 hover:text-slate-700 shadow-sm'
                       }`}
                     >
-                      <span className="font-medium text-xs sm:text-sm">{time}</span>
+                      <span className="text-xs sm:text-sm">{time}</span>
                     </div>
                   ))}
                 </div>
@@ -241,21 +251,21 @@ export default function Register() {
 
               {/* 6. Non-marking shoes - Pill Selection */}
               <div className="space-y-4 md:col-span-2">
-                <label className="text-sm font-semibold text-neutral-300 ml-1 flex items-center gap-2">
-                  <Zap className="w-4 h-4 text-purple-400" /> Do you have non-marking shoes? <span className="text-emerald-500">*</span>
+                <label className="text-sm font-bold text-slate-700 ml-1 flex items-center gap-2">
+                  <Zap className="w-4 h-4 text-emerald-400" /> Do you have non-marking shoes? <span className="text-rose-400">*</span>
                 </label>
                 <div className="flex gap-4">
                   {['Yes', 'No'].map((ans) => (
                     <div
                       key={ans}
                       onClick={() => handleSelect('shoes', ans)}
-                      className={`cursor-pointer flex-1 rounded-2xl py-4 text-center border transition-all duration-200 ${
+                      className={`cursor-pointer flex-1 rounded-2xl py-4 text-center border-2 transition-all duration-200 ${
                         formData.shoes === ans 
-                        ? 'border-emerald-500 bg-emerald-500/10 text-emerald-400 shadow-[0_0_15px_rgba(16,185,129,0.15)]' 
-                        : 'border-neutral-800 bg-neutral-950 text-neutral-400 hover:border-neutral-700 hover:bg-neutral-800'
+                        ? 'border-indigo-500 bg-indigo-50 text-indigo-700 shadow-sm' 
+                        : 'border-transparent bg-slate-50 text-slate-500 hover:bg-slate-100 hover:text-slate-700 shadow-sm'
                       }`}
                     >
-                      <span className="font-bold text-lg">{ans}</span>
+                      <span className="font-extrabold text-lg">{ans}</span>
                     </div>
                   ))}
                 </div>
@@ -263,39 +273,39 @@ export default function Register() {
 
               {/* 7. Heard From */}
               <div className="space-y-3 md:col-span-2">
-                <label className="text-sm font-semibold text-neutral-300 ml-1">
-                  How did you find us? <span className="text-emerald-500">*</span>
+                <label className="text-sm font-bold text-slate-700 ml-1">
+                  How did you find us? <span className="text-rose-400">*</span>
                 </label>
                 <div className="relative">
                   <select
                     name="heardFrom"
                     value={formData.heardFrom}
                     onChange={handleChange}
-                    className="w-full bg-neutral-950 border border-neutral-800 rounded-2xl px-5 py-4 text-white focus:outline-none focus:ring-1 focus:ring-emerald-500 focus:border-emerald-500 transition-all appearance-none cursor-pointer shadow-inner"
+                    className="w-full bg-white border border-slate-200 rounded-2xl px-5 py-4 text-slate-800 font-medium focus:outline-none focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-400 transition-all appearance-none cursor-pointer shadow-sm"
                   >
-                    <option value="" disabled className="text-neutral-600">Select an option...</option>
+                    <option value="" disabled className="text-slate-400">Select an option...</option>
                     <option value="Friend/Word of Mouth">Friend / Word of Mouth</option>
                     <option value="Instagram">Instagram</option>
                     <option value="Facebook">Facebook</option>
                     <option value="Other">Other</option>
                   </select>
                   <div className="absolute inset-y-0 right-5 flex items-center pointer-events-none">
-                    <svg className="w-4 h-4 text-neutral-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg>
+                    <svg className="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M19 9l-7 7-7-7"></path></svg>
                   </div>
                 </div>
               </div>
 
             </div>
 
-            <div className="pt-8 mt-10 border-t border-neutral-800">
+            <div className="pt-8 mt-10 border-t border-slate-100">
               <button
                 type="submit"
                 disabled={isLoading}
-                className="w-full py-5 bg-gradient-to-r from-emerald-500 to-cyan-500 hover:from-emerald-400 hover:to-cyan-400 text-black font-black text-lg rounded-2xl transition-all shadow-[0_0_20px_rgba(16,185,129,0.3)] flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed hover:shadow-[0_0_30px_rgba(16,185,129,0.5)] hover:-translate-y-0.5"
+                className="w-full py-5 bg-indigo-500 hover:bg-indigo-600 text-white font-extrabold text-lg rounded-2xl transition-all shadow-[0_8px_20px_rgba(99,102,241,0.3)] flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed hover:shadow-[0_12px_25px_rgba(99,102,241,0.4)] hover:-translate-y-1"
               >
                 {isLoading ? (
                   <>
-                    <Loader2 className="w-6 h-6 animate-spin text-black" />
+                    <Loader2 className="w-6 h-6 animate-spin" />
                     Securing your spot...
                   </>
                 ) : (
@@ -306,7 +316,7 @@ export default function Register() {
           </form>
         </div>
         
-        <p className="text-center text-neutral-600 text-sm mt-8 pb-8">
+        <p className="text-center text-slate-400 text-sm font-medium mt-8 pb-8">
           © {new Date().getFullYear()} The Weekend Baddie. All rights reserved.
         </p>
       </div>
