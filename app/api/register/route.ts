@@ -91,17 +91,17 @@ export async function POST(request: Request) {
       const qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(player.qrId)}`;
       
       const htmlBody = `
-        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; background-color: #000; color: #fff; padding: 20px; border-radius: 10px;">
-          <h1 style="color: #10b981; text-align: center;">The Weekend Baddy</h1>
-          <h2 style="text-align: center;">Trial Membership Confirmed!</h2>
+        <div style="font-family: Arial, sans-serif; color: #000; font-size: 14px; line-height: 1.6;">
           <p>Hi ${player.name},</p>
-          <p>Welcome to The Weekend Baddy community! Your registration was successful.</p>
-          <p>Below is your custom QR Code ticket. Please present this code to the event organizers upon arrival to check in.</p>
-          <div style="text-align: center; margin: 30px 0; background-color: white; padding: 20px; border-radius: 10px; display: inline-block;">
-            <img src="${qrCodeUrl}" alt="Your QR Code" width="300" height="300" />
-          </div>
-          <p><strong>Your Ticket ID:</strong> ${player.id}</p>
-          <p>See you on the court!</p>
+          <p>You're officially signed up for The Weekend Baddy's! Here are your details:</p>
+          <p style="margin-left: 20px;">
+            Player ID &nbsp;: ${player.id}<br/>
+            Proficiency : ${player.duration}
+          </p>
+          <p>Your entry pass (QR code) is attached to this email. Please show it when you arrive at the venue — we'll scan it to check you in.</p>
+          <p>Save this email — your Player ID stays the same for all future sessions.</p>
+          <p>See you on the court! 🏸🏸🏸🏸🏸<br/>
+          The Weekend Baddy's Team</p>
         </div>
       `;
 
@@ -111,6 +111,12 @@ export async function POST(request: Request) {
           to: player.email,
           subject: 'Your Weekend Baddie Ticket 🎟️',
           html: htmlBody,
+          attachments: [
+            {
+              filename: 'qr-code.png',
+              path: qrCodeUrl,
+            }
+          ]
         });
       } catch (emailError) {
         console.error('Failed to send email:', emailError);
