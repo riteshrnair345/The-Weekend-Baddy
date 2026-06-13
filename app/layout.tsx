@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "The Weekend Baddy | Admin Portal",
+  title: "The Weekend Baddy",
   description: "Check-in portal for The Weekend Baddy events",
 };
 

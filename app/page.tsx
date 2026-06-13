@@ -24,6 +24,10 @@ export default function WeekendBaddieApp() {
   const [isLoadingAuth, setIsLoadingAuth] = useState(true);
 
   useEffect(() => {
+    document.title = "The Weekend Baddy | Admin Portal";
+  }, []);
+
+  useEffect(() => {
     // Check local storage for auth state on mount
     const authState = localStorage.getItem("wb_auth");
     if (authState === "true") {
