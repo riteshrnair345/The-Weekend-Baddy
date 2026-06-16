@@ -1,7 +1,7 @@
 import Footer from '@/components/Footer';
 
 export const metadata = {
-  title: 'Privacy Policy | The Weekend Baddy',
+  title: 'Privacy Policy | RacketHeads Kochi',
 };
 
 export default function PrivacyPage() {

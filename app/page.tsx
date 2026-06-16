@@ -18,15 +18,15 @@ export default function LandingPage() {
         {/* Hero Section */}
         <section className="w-full max-w-5xl mx-auto px-4 py-24 sm:py-32 flex flex-col items-center text-center">
           <div className="w-20 h-20 bg-white rounded-[2rem] flex items-center justify-center font-black text-indigo-500 shadow-[0_8px_30px_rgb(0,0,0,0.08)] border border-slate-100 mb-8 rotate-3 hover:rotate-6 transition-transform">
-            <span className="text-3xl">WB</span>
+            <span className="text-3xl">RK</span>
           </div>
           
           <h1 className="text-5xl sm:text-7xl font-black tracking-tight text-slate-800 mb-6 drop-shadow-sm">
-            The Weekend <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 to-sky-500">Baddy</span>
+            RacketHeads <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 to-sky-500">Kochi</span>
           </h1>
           
           <p className="text-lg sm:text-xl text-slate-600 font-medium max-w-2xl mb-12 leading-relaxed">
-            Elevate your weekend. Join our exclusive community of badminton enthusiasts for high-energy sessions, great matches, and active networking.
+            A Badminton community — play, compete, connect.
           </p>
           
           <Link 
@@ -74,7 +74,7 @@ export default function LandingPage() {
           <div className="max-w-md mx-auto bg-white rounded-[2.5rem] p-8 sm:p-12 shadow-[0_8px_40px_rgb(0,0,0,0.06)] border border-slate-100 relative overflow-hidden">
             <div className="absolute top-0 left-0 right-0 h-2 bg-gradient-to-r from-indigo-500 to-sky-500" />
             
-            <h3 className="text-2xl font-bold text-slate-800 mb-2">Weekend Session</h3>
+            <h3 className="text-2xl font-bold text-slate-800 mb-2">Badminton Session</h3>
             <div className="flex items-center justify-center gap-1 mb-8">
               <span className="text-5xl font-black text-slate-800">₹150</span>
               <span className="text-slate-500 font-medium">/ session</span>

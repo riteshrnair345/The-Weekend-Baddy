@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "The Weekend Baddy",
-  description: "Check-in portal for The Weekend Baddy events",
+  title: "RacketHeads Kochi",
+  description: "Check-in portal for RacketHeads Kochi events",
 };
 
 export default function RootLayout({

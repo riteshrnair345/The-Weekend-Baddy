@@ -24,7 +24,7 @@ export default function WeekendBaddieApp() {
   const [isLoadingAuth, setIsLoadingAuth] = useState(true);
 
   useEffect(() => {
-    document.title = "The Weekend Baddy | Admin Portal";
+    document.title = "RacketHeads Kochi | Admin Portal";
   }, []);
 
   useEffect(() => {
@@ -68,7 +68,7 @@ export default function WeekendBaddieApp() {
                 <span className="text-white font-bold text-sm">WB</span>
               </div>
               <h1 className="text-xl font-bold text-slate-800 tracking-tight hidden sm:block">
-                The Weekend Baddy
+                RacketHeads Kochi
               </h1>
             </div>
             

@@ -93,7 +93,7 @@ export async function POST(request: Request) {
       const htmlBody = `
         <div style="font-family: Arial, sans-serif; color: #000; font-size: 14px; line-height: 1.6;">
           <p>Hi ${player.name},</p>
-          <p>You're officially signed up for The Weekend Baddy's! Here are your details:</p>
+          <p>You're officially signed up for RacketHeads Kochi! Here are your details:</p>
           <p style="margin-left: 20px;">
             Player ID &nbsp;: ${player.id}<br/>
             Proficiency : ${player.duration}
@@ -101,15 +101,15 @@ export async function POST(request: Request) {
           <p>Your entry pass (QR code) is attached to this email. Please show it when you arrive at the venue — we'll scan it to check you in.</p>
           <p>Save this email — your Player ID stays the same for all future sessions.</p>
           <p>See you on the court! 🏸🏸🏸🏸🏸<br/>
-          The Weekend Baddy's Team</p>
+          RacketHeads Kochi Team</p>
         </div>
       `;
 
       try {
         await transporter.sendMail({
-          from: `"The Weekend Baddy" <${process.env.EMAIL_USER}>`,
+          from: `"RacketHeads Kochi" <${process.env.EMAIL_USER}>`,
           to: player.email,
-          subject: 'Your Weekend Baddie Ticket 🎟️',
+          subject: 'Your RacketHeads Kochi Ticket 🎟️',
           html: htmlBody,
           attachments: [
             {

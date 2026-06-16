@@ -12,12 +12,12 @@ export default function Footer() {
         <div className="space-y-4">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 bg-indigo-500 rounded-xl flex items-center justify-center font-black text-white shadow-lg">
-              <span>WB</span>
+              <span>RK</span>
             </div>
-            <h3 className="text-xl font-bold text-white tracking-tight">The Weekend Baddy</h3>
+            <h3 className="text-xl font-bold text-white tracking-tight">RacketHeads Kochi</h3>
           </div>
           <p className="text-sm text-slate-400 leading-relaxed max-w-sm">
-            Premium weekend badminton sessions for players of all levels. Join our community, stay active, and smash your goals!
+            A Badminton community — play, compete, connect.
           </p>
         </div>
 
@@ -67,7 +67,7 @@ export default function Footer() {
       </div>
       
       <div className="max-w-6xl mx-auto mt-12 pt-8 border-t border-slate-800 text-center text-sm font-medium text-slate-500">
-        © {currentYear} The Weekend Baddy. All rights reserved.
+        © {currentYear} RacketHeads Kochi. All rights reserved.
       </div>
     </footer>
   );

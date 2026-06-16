@@ -1,7 +1,7 @@
 import Footer from '@/components/Footer';
 
 export const metadata = {
-  title: 'Cancellation & Refund Policy | The Weekend Baddy',
+  title: 'Cancellation & Refund Policy | RacketHeads Kochi',
 };
 
 export default function RefundsPage() {
@@ -32,7 +32,7 @@ export default function RefundsPage() {
 
           <h2 className="text-2xl font-bold text-slate-800 mt-8">4. Event Cancellation by Organizers</h2>
           <p>
-            In the rare event that The Weekend Baddy cancels a session (due to venue unavailability, emergencies, etc.), all registered players will receive a <strong>100% full refund</strong> automatically credited to their original payment method.
+            In the rare event that RacketHeads Kochi cancels a session (due to venue unavailability, emergencies, etc.), all registered players will receive a <strong>100% full refund</strong> automatically credited to their original payment method.
           </p>
 
           <h2 className="text-2xl font-bold text-slate-800 mt-8">5. Refund Processing</h2>

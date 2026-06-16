@@ -1,7 +1,7 @@
 import Footer from '@/components/Footer';
 
 export const metadata = {
-  title: 'Terms & Conditions | The Weekend Baddy',
+  title: 'Terms & Conditions | RacketHeads Kochi',
 };
 
 export default function TermsPage() {
@@ -15,7 +15,7 @@ export default function TermsPage() {
           
           <h2 className="text-2xl font-bold text-slate-800 mt-8">1. Introduction</h2>
           <p>
-            Welcome to The Weekend Baddy. By booking a session and participating in our events, you agree to abide by these Terms and Conditions. Please read them carefully.
+            Welcome to RacketHeads Kochi. By booking a session and participating in our events, you agree to abide by these Terms and Conditions. Please read them carefully.
           </p>
 
           <h2 className="text-2xl font-bold text-slate-800 mt-8">2. Eligibility</h2>
@@ -30,7 +30,7 @@ export default function TermsPage() {
 
           <h2 className="text-2xl font-bold text-slate-800 mt-8">4. Service Delivery Policy (Offline Service)</h2>
           <p>
-            The Weekend Baddy provides an <strong>offline, physical service</strong> (badminton court access and community matchmaking). 
+            RacketHeads Kochi provides an <strong>offline, physical service</strong> (badminton court access and community matchmaking). 
             Upon successful payment, you will receive an entry pass (QR code) via email. No physical goods will be shipped to you. 
             The service is deemed "delivered" when you attend the scheduled session.
           </p>
@@ -39,7 +39,7 @@ export default function TermsPage() {
           <ul className="list-disc pl-6 space-y-2">
             <li>Players must wear proper <strong>non-marking shoes</strong> on the courts.</li>
             <li>Respectful behavior towards organizers and other players is mandatory.</li>
-            <li>The Weekend Baddy is not liable for any physical injuries, accidents, or loss of personal property that may occur during the sessions. Play at your own risk.</li>
+            <li>RacketHeads Kochi is not liable for any physical injuries, accidents, or loss of personal property that may occur during the sessions. Play at your own risk.</li>
           </ul>
 
           <h2 className="text-2xl font-bold text-slate-800 mt-8">6. Changes to Terms</h2>

@@ -73,7 +73,7 @@ export default function Register() {
         key: orderData.key,
         amount: orderData.amount,
         currency: orderData.currency,
-        name: "The Weekend Baddy",
+        name: "RacketHeads Kochi",
         description: "Event Ticket Registration",
         order_id: orderData.id,
         handler: async function (response: any) {
@@ -150,7 +150,7 @@ export default function Register() {
               You're In, {ticketData.name}! 🎉
             </h1>
             <p className="text-slate-500 text-sm font-medium">
-              We've emailed you a copy of your ticket. Get ready for an amazing weekend!
+              We've emailed you a copy of your ticket. Get ready for an amazing session!
             </p>
           </div>
 
@@ -198,10 +198,10 @@ export default function Register() {
         {/* Header */}
         <header className="mb-10 flex flex-col items-center justify-center">
           <div className="w-16 h-16 bg-white rounded-3xl flex items-center justify-center font-black text-indigo-500 shadow-[0_8px_30px_rgb(0,0,0,0.06)] border border-slate-100 mb-6 rotate-3 hover:rotate-6 transition-transform">
-            <span className="text-2xl">WB</span>
+            <span className="text-2xl">RK</span>
           </div>
           <h1 className="text-4xl sm:text-5xl font-black tracking-tight text-slate-800 mb-3 text-center">
-            The Weekend Baddy
+            RacketHeads Kochi
           </h1>
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-50 border border-emerald-100 text-emerald-600 text-sm font-semibold shadow-sm">
             <Sparkles className="w-4 h-4" />
