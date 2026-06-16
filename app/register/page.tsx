@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { Loader2, CheckCircle, Sparkles, Smile, Trophy, Clock, Zap, Phone, Mail, User, Info, CreditCard } from 'lucide-react';
 import Script from 'next/script';
+import Footer from '@/components/Footer';
 
 export default function Register() {
   const [formData, setFormData] = useState({
@@ -202,9 +203,9 @@ export default function Register() {
           <h1 className="text-4xl sm:text-5xl font-black tracking-tight text-slate-800 mb-3 text-center">
             The Weekend Baddy
           </h1>
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-indigo-50 border border-indigo-100 text-indigo-600 text-sm font-semibold shadow-sm">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-50 border border-emerald-100 text-emerald-600 text-sm font-semibold shadow-sm">
             <Sparkles className="w-4 h-4" />
-            Your complimentary trial awaits
+            Entry Fee: ₹150 / session
           </div>
         </header>
 
@@ -387,10 +388,9 @@ export default function Register() {
             </div>
           </form>
         </div>
-        
-        <p className="text-center text-slate-400 text-sm font-medium mt-8 pb-8">
-          © {new Date().getFullYear()} The Weekend Baddy. All rights reserved.
-        </p>
+      </div>
+      <div className="w-full mt-20">
+        <Footer />
       </div>
     </div>
   );
