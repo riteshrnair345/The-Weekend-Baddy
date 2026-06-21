@@ -70,19 +70,13 @@ export default function LandingPage() {
 
         {/* Pricing Section */}
         <section className="w-full max-w-5xl mx-auto px-4 py-24 text-center">
-          <h2 className="text-3xl font-bold text-slate-800 mb-4">Simple, Transparent Pricing</h2>
-          <p className="text-slate-500 font-medium mb-12">Pay only for the sessions you attend.</p>
+          <h2 className="text-3xl font-bold text-slate-800 mb-4">Session Details</h2>
+          <p className="text-slate-500 font-medium mb-12">Everything you get when you book a slot.</p>
           
           <div className="max-w-md mx-auto bg-white rounded-[2.5rem] p-8 sm:p-12 shadow-[0_8px_40px_rgb(0,0,0,0.06)] border border-slate-100 relative overflow-hidden">
             <div className="absolute top-0 left-0 right-0 h-2 bg-gradient-to-r from-indigo-500 to-sky-500" />
             
-            <h3 className="text-2xl font-bold text-slate-800 mb-2">Badminton Session</h3>
-            <div className="flex items-center justify-center gap-1 mb-8">
-              <span className="text-5xl font-black text-slate-800">₹150</span>
-              <span className="text-slate-500 font-medium">/ session</span>
-            </div>
-            
-            <div className="text-left font-bold text-slate-700 mb-4">Session Inclusions :</div>
+            <h3 className="text-2xl font-bold text-slate-800 mb-8">Session Inclusions</h3>
             <ul className="text-left space-y-4 mb-10">
               {[
                 "2hrs court time",
