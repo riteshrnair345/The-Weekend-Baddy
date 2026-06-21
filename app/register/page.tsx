@@ -1,8 +1,9 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Loader2, CheckCircle, Sparkles, Smile, Trophy, Clock, Zap, Phone, Mail, User, Info, CreditCard } from 'lucide-react';
+import { Loader2, CheckCircle, Sparkles, Smile, Trophy, Clock, Zap, Phone, Mail, User, Info, CreditCard, ArrowLeft } from 'lucide-react';
 import Script from 'next/script';
+import Link from 'next/link';
 import Footer from '@/components/Footer';
 
 export default function Register() {
@@ -55,101 +56,32 @@ export default function Register() {
     setIsLoading(true);
     setError(null);
 
-    try {
-      // 1. Create Razorpay order
-      const res = await fetch('/api/checkout', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
-      });
+    // Save draft so the user doesn't lose their data if they come back
+    localStorage.setItem('twb_register_draft', JSON.stringify(formData));
 
-      const orderData = await res.json();
-      if (!orderData.id) {
-        throw new Error(orderData.error || "Failed to initiate payment");
-      }
-
-      // 2. Open Razorpay Checkout
-      const options = {
-        key: orderData.key,
-        amount: orderData.amount,
-        currency: orderData.currency,
-        name: "RacketHeads Kochi",
-        description: "Event Ticket Registration",
-        order_id: orderData.id,
-        handler: async function (response: any) {
-          // 3. Payment succeeded! Verify and register.
-          try {
-            setIsLoading(true);
-            const verifyRes = await fetch('/api/register', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({
-                ...formData,
-                razorpay_payment_id: response.razorpay_payment_id,
-                razorpay_order_id: response.razorpay_order_id,
-                razorpay_signature: response.razorpay_signature,
-              }),
-            });
-            const verifyData = await verifyRes.json();
-            
-            if (verifyData.success) {
-              setTicketData({ qrId: verifyData.qrId, name: verifyData.name });
-            } else {
-              setError(verifyData.error || 'Payment verified but registration failed.');
-            }
-          } catch (err) {
-            setError("Error finalizing registration. Please contact support.");
-          } finally {
-            setIsLoading(false);
-          }
-        },
-        prefill: {
-          name: formData.name,
-          email: formData.email,
-          contact: formData.phone,
-        },
-        theme: {
-          color: "#6366f1",
-        },
-        modal: {
-          ondismiss: function () {
-            setIsLoading(false);
-          }
-        }
-      };
-
-      const rzp = new (window as any).Razorpay(options);
-      rzp.on('payment.failed', function (response: any) {
-        setError(response.error.description);
-        setIsLoading(false);
-      });
-      rzp.open();
-
-    } catch (err: any) {
-      setError(err.message || 'A network error occurred. Please try again.');
-      setIsLoading(false);
-    }
+    // Redirect directly to the payment portal
+    window.location.href = "https://rzp.io/rzp/J5ERIpR";
   };
 
   if (ticketData) {
-    const qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&color=6366f1&bgcolor=ffffff&data=${encodeURIComponent(ticketData.qrId)}`;
+    const qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&color=3a1a5d&bgcolor=ffffff&data=${encodeURIComponent(ticketData.qrId)}`;
     
     return (
-      <div className="min-h-screen bg-[#fafafa] text-slate-800 flex flex-col items-center justify-center p-4 selection:bg-indigo-200 relative overflow-hidden">
+      <div className="min-h-screen bg-brand-yellow-light text-brand-purple flex flex-col items-center justify-center p-4 selection:bg-brand-pink/20 relative overflow-hidden">
         {/* Soft Background Image */}
-        <div className="absolute inset-0 bg-[url('/badminton-bg.png')] bg-cover bg-center bg-no-repeat opacity-60 pointer-events-none mix-blend-multiply" />
+        <div className="absolute inset-0 bg-[url('/badminton-bg.png')] bg-cover bg-center bg-no-repeat opacity-40 pointer-events-none mix-blend-multiply" />
 
         <div className="max-w-md w-full bg-white/90 backdrop-blur-xl border border-white/50 rounded-[2.5rem] p-8 text-center space-y-6 shadow-[0_8px_40px_rgb(0,0,0,0.04)] relative z-10">
           
-          <div className="mx-auto w-20 h-20 bg-indigo-50 rounded-full flex items-center justify-center mb-4 shadow-sm border border-indigo-100">
-            <CheckCircle className="w-10 h-10 text-indigo-500" />
+          <div className="mx-auto w-20 h-20 bg-emerald-50 rounded-full flex items-center justify-center mb-4 shadow-sm border border-emerald-100">
+            <CheckCircle className="w-10 h-10 text-emerald-500" />
           </div>
           
           <div>
-            <h1 className="text-3xl font-extrabold tracking-tight mb-2 text-slate-800">
+            <h1 className="text-3xl font-extrabold tracking-tight mb-2 text-brand-purple">
               You're In, {ticketData.name}! 🎉
             </h1>
-            <p className="text-slate-500 text-sm font-medium">
+            <p className="text-brand-purple/70 text-sm font-medium">
               We've emailed you a copy of your ticket. Get ready for an amazing session!
             </p>
           </div>
@@ -163,9 +95,9 @@ export default function Register() {
             />
           </div>
 
-          <div className="bg-indigo-50 border border-indigo-100/50 rounded-2xl p-4 flex items-start gap-3 text-left">
-            <Info className="w-5 h-5 text-indigo-500 shrink-0 mt-0.5" />
-            <p className="text-indigo-700 text-sm font-medium leading-relaxed">
+          <div className="bg-brand-pink/10 border border-brand-pink/20 rounded-2xl p-4 flex items-start gap-3 text-left">
+            <Info className="w-5 h-5 text-brand-pink shrink-0 mt-0.5" />
+            <p className="text-brand-purple text-sm font-medium leading-relaxed">
               Take a quick screenshot of this code to show at the entrance!
             </p>
           </div>
@@ -187,11 +119,19 @@ export default function Register() {
   }
 
   return (
-    <div className="min-h-screen bg-[#fafafa] text-slate-800 p-4 sm:p-8 flex flex-col items-center justify-center selection:bg-indigo-200 relative overflow-hidden">
+    <div className="min-h-screen bg-brand-yellow-light text-brand-purple p-4 sm:p-8 flex flex-col items-center justify-center selection:bg-brand-pink/20 relative overflow-hidden">
       <Script src="https://checkout.razorpay.com/v1/checkout.js" strategy="lazyOnload" />
       
       {/* Soft Background Image */}
-      <div className="absolute inset-0 bg-[url('/badminton-bg.png')] bg-cover bg-center bg-no-repeat opacity-60 pointer-events-none mix-blend-multiply" />
+      <div className="absolute inset-0 bg-[url('/badminton-bg.png')] bg-cover bg-center bg-no-repeat opacity-40 pointer-events-none mix-blend-multiply" />
+
+      {/* Back Button */}
+      <div className="absolute top-6 left-4 sm:left-8 z-20">
+        <Link href="/" className="inline-flex items-center gap-2 px-4 py-2 bg-white/80 hover:bg-white text-brand-purple rounded-xl font-bold text-sm transition-all shadow-sm border border-brand-purple/10 backdrop-blur-sm hover:shadow-md hover:-translate-x-1">
+          <ArrowLeft className="w-4 h-4" />
+          Go Back
+        </Link>
+      </div>
 
       <div className="max-w-2xl w-full relative z-10 pt-4">
         
@@ -202,7 +142,7 @@ export default function Register() {
             alt="RacketHeads Kochi Logo" 
             className="h-24 w-auto rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.06)] mb-6 rotate-3 hover:rotate-6 transition-transform object-contain" 
           />
-          <h1 className="text-4xl sm:text-5xl font-black tracking-tight text-slate-800 mb-3 text-center">
+          <h1 className="text-4xl sm:text-5xl font-black tracking-tight text-brand-purple mb-3 text-center">
             RacketHeads Kochi
           </h1>
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-50 border border-emerald-100 text-emerald-600 text-sm font-semibold shadow-sm">
@@ -215,10 +155,10 @@ export default function Register() {
         <div className="bg-white/90 backdrop-blur-xl border border-white/60 rounded-[2.5rem] p-6 sm:p-10 shadow-[0_8px_40px_rgb(0,0,0,0.04)] relative">
           
           <div className="mb-10">
-            <h2 className="text-2xl font-bold mb-2 flex items-center gap-2 text-slate-800">
-              <Smile className="w-6 h-6 text-indigo-500" /> Let's get to know you
+            <h2 className="text-2xl font-bold mb-2 flex items-center gap-2 text-brand-purple">
+              <Smile className="w-6 h-6 text-brand-pink" /> Let's get to know you
             </h2>
-            <p className="text-slate-500 text-sm font-medium">
+            <p className="text-brand-purple/70 text-sm font-medium">
               We just need a few details to customize your experience.
             </p>
           </div>
@@ -234,8 +174,8 @@ export default function Register() {
               
               {/* 1. Full Name */}
               <div className="space-y-3 md:col-span-2">
-                <label className="text-sm font-bold text-slate-700 ml-1 flex items-center gap-2">
-                  <User className="w-4 h-4 text-indigo-400" /> What's your full name? <span className="text-rose-400">*</span>
+                <label className="text-sm font-bold text-brand-purple ml-1 flex items-center gap-2">
+                  <User className="w-4 h-4 text-brand-pink" /> What's your full name? <span className="text-brand-pink">*</span>
                 </label>
                 <input
                   type="text"
@@ -243,14 +183,14 @@ export default function Register() {
                   value={formData.name}
                   onChange={handleChange}
                   placeholder="e.g. Jane Doe"
-                  className="w-full bg-white border border-slate-200 rounded-2xl px-5 py-4 text-slate-800 focus:outline-none focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-400 transition-all placeholder:text-slate-400 shadow-sm font-medium"
+                  className="w-full bg-white border border-brand-purple/20 rounded-2xl px-5 py-4 text-brand-purple focus:outline-none focus:ring-4 focus:ring-brand-purple/10 focus:border-brand-purple transition-all placeholder:text-brand-purple/40 shadow-sm font-medium"
                 />
               </div>
 
               {/* 2. Email */}
               <div className="space-y-3">
-                <label className="text-sm font-bold text-slate-700 ml-1 flex items-center gap-2">
-                  <Mail className="w-4 h-4 text-indigo-400" /> Email address <span className="text-rose-400">*</span>
+                <label className="text-sm font-bold text-brand-purple ml-1 flex items-center gap-2">
+                  <Mail className="w-4 h-4 text-brand-pink" /> Email address <span className="text-brand-pink">*</span>
                 </label>
                 <input
                   type="email"
@@ -258,14 +198,14 @@ export default function Register() {
                   value={formData.email}
                   onChange={handleChange}
                   placeholder="hello@example.com"
-                  className="w-full bg-white border border-slate-200 rounded-2xl px-5 py-4 text-slate-800 focus:outline-none focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-400 transition-all placeholder:text-slate-400 shadow-sm font-medium"
+                  className="w-full bg-white border border-brand-purple/20 rounded-2xl px-5 py-4 text-brand-purple focus:outline-none focus:ring-4 focus:ring-brand-purple/10 focus:border-brand-purple transition-all placeholder:text-brand-purple/40 shadow-sm font-medium"
                 />
               </div>
 
               {/* 3. Phone Number */}
               <div className="space-y-3">
-                <label className="text-sm font-bold text-slate-700 ml-1 flex items-center gap-2">
-                  <Phone className="w-4 h-4 text-indigo-400" /> Phone number <span className="text-rose-400">*</span>
+                <label className="text-sm font-bold text-brand-purple ml-1 flex items-center gap-2">
+                  <Phone className="w-4 h-4 text-brand-pink" /> Phone number <span className="text-brand-pink">*</span>
                 </label>
                 <input
                   type="tel"
@@ -273,14 +213,14 @@ export default function Register() {
                   value={formData.phone}
                   onChange={handleChange}
                   placeholder="+1 (555) 000-0000"
-                  className="w-full bg-white border border-slate-200 rounded-2xl px-5 py-4 text-slate-800 focus:outline-none focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-400 transition-all placeholder:text-slate-400 shadow-sm font-medium"
+                  className="w-full bg-white border border-brand-purple/20 rounded-2xl px-5 py-4 text-brand-purple focus:outline-none focus:ring-4 focus:ring-brand-purple/10 focus:border-brand-purple transition-all placeholder:text-brand-purple/40 shadow-sm font-medium"
                 />
               </div>
 
               {/* 4. Proficiency - Card Selection */}
               <div className="space-y-4 md:col-span-2">
-                <label className="text-sm font-bold text-slate-700 ml-1 flex items-center gap-2">
-                  <Trophy className="w-4 h-4 text-amber-400" /> How would you rate your skills? <span className="text-rose-400">*</span>
+                <label className="text-sm font-bold text-brand-purple ml-1 flex items-center gap-2">
+                  <Trophy className="w-4 h-4 text-brand-pink" /> How would you rate your skills? <span className="text-brand-pink">*</span>
                 </label>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
                   {['Beginner', 'Amateur', 'Advanced', 'Professional'].map((level) => (
@@ -289,8 +229,8 @@ export default function Register() {
                       onClick={() => handleSelect('proficiency', level)}
                       className={`cursor-pointer rounded-2xl p-4 text-center border-2 transition-all duration-200 font-bold ${
                         formData.proficiency === level 
-                        ? 'border-indigo-500 bg-indigo-50 text-indigo-700 shadow-sm' 
-                        : 'border-transparent bg-slate-50 text-slate-500 hover:bg-slate-100 hover:text-slate-700 shadow-sm'
+                        ? 'border-brand-purple bg-brand-yellow text-brand-purple shadow-sm' 
+                        : 'border-transparent bg-white border-brand-purple/10 text-brand-purple/70 hover:bg-brand-purple/5 hover:text-brand-purple shadow-sm'
                       }`}
                     >
                       <span className="text-sm">{level}</span>
@@ -301,8 +241,8 @@ export default function Register() {
 
               {/* 5. Duration - Card Selection */}
               <div className="space-y-4 md:col-span-2">
-                <label className="text-sm font-bold text-slate-700 ml-1 flex items-center gap-2">
-                  <Clock className="w-4 h-4 text-sky-400" /> How long have you been playing? <span className="text-rose-400">*</span>
+                <label className="text-sm font-bold text-brand-purple ml-1 flex items-center gap-2">
+                  <Clock className="w-4 h-4 text-brand-pink" /> How long have you been playing? <span className="text-brand-pink">*</span>
                 </label>
                 <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
                   {['< 1 year', '1-3 years', '3-5 years', '5-10 years', '10+ years'].map((time) => (
@@ -311,8 +251,8 @@ export default function Register() {
                       onClick={() => handleSelect('duration', time)}
                       className={`cursor-pointer rounded-2xl p-3 text-center border-2 transition-all duration-200 flex items-center justify-center font-bold ${
                         formData.duration === time 
-                        ? 'border-indigo-500 bg-indigo-50 text-indigo-700 shadow-sm' 
-                        : 'border-transparent bg-slate-50 text-slate-500 hover:bg-slate-100 hover:text-slate-700 shadow-sm'
+                        ? 'border-brand-purple bg-brand-yellow text-brand-purple shadow-sm' 
+                        : 'border-transparent bg-white border-brand-purple/10 text-brand-purple/70 hover:bg-brand-purple/5 hover:text-brand-purple shadow-sm'
                       }`}
                     >
                       <span className="text-xs sm:text-sm">{time}</span>
@@ -323,8 +263,8 @@ export default function Register() {
 
               {/* 6. Non-marking shoes - Pill Selection */}
               <div className="space-y-4 md:col-span-2">
-                <label className="text-sm font-bold text-slate-700 ml-1 flex items-center gap-2">
-                  <Zap className="w-4 h-4 text-emerald-400" /> Do you have non-marking shoes? <span className="text-rose-400">*</span>
+                <label className="text-sm font-bold text-brand-purple ml-1 flex items-center gap-2">
+                  <Zap className="w-4 h-4 text-brand-pink" /> Do you have non-marking shoes? <span className="text-brand-pink">*</span>
                 </label>
                 <div className="flex gap-4">
                   {['Yes', 'No'].map((ans) => (
@@ -333,8 +273,8 @@ export default function Register() {
                       onClick={() => handleSelect('shoes', ans)}
                       className={`cursor-pointer flex-1 rounded-2xl py-4 text-center border-2 transition-all duration-200 ${
                         formData.shoes === ans 
-                        ? 'border-indigo-500 bg-indigo-50 text-indigo-700 shadow-sm' 
-                        : 'border-transparent bg-slate-50 text-slate-500 hover:bg-slate-100 hover:text-slate-700 shadow-sm'
+                        ? 'border-brand-purple bg-brand-yellow text-brand-purple shadow-sm' 
+                        : 'border-transparent bg-white border-brand-purple/10 text-brand-purple/70 hover:bg-brand-purple/5 hover:text-brand-purple shadow-sm'
                       }`}
                     >
                       <span className="font-extrabold text-lg">{ans}</span>
@@ -345,35 +285,35 @@ export default function Register() {
 
               {/* 7. Heard From */}
               <div className="space-y-3 md:col-span-2">
-                <label className="text-sm font-bold text-slate-700 ml-1">
-                  How did you find us? <span className="text-rose-400">*</span>
+                <label className="text-sm font-bold text-brand-purple ml-1">
+                  How did you find us? <span className="text-brand-pink">*</span>
                 </label>
                 <div className="relative">
                   <select
                     name="heardFrom"
                     value={formData.heardFrom}
                     onChange={handleChange}
-                    className="w-full bg-white border border-slate-200 rounded-2xl px-5 py-4 text-slate-800 font-medium focus:outline-none focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-400 transition-all appearance-none cursor-pointer shadow-sm"
+                    className="w-full bg-white border border-brand-purple/20 rounded-2xl px-5 py-4 text-brand-purple font-medium focus:outline-none focus:ring-4 focus:ring-brand-purple/10 focus:border-brand-purple transition-all appearance-none cursor-pointer shadow-sm"
                   >
-                    <option value="" disabled className="text-slate-400">Select an option...</option>
+                    <option value="" disabled className="text-brand-purple/40">Select an option...</option>
                     <option value="Friend/Word of Mouth">Friend / Word of Mouth</option>
                     <option value="Instagram">Instagram</option>
                     <option value="Facebook">Facebook</option>
                     <option value="Other">Other</option>
                   </select>
                   <div className="absolute inset-y-0 right-5 flex items-center pointer-events-none">
-                    <svg className="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M19 9l-7 7-7-7"></path></svg>
+                    <svg className="w-5 h-5 text-brand-purple/40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M19 9l-7 7-7-7"></path></svg>
                   </div>
                 </div>
               </div>
 
             </div>
 
-            <div className="pt-8 mt-10 border-t border-slate-100">
+            <div className="pt-8 mt-10 border-t border-brand-purple/10">
               <button
                 type="submit"
                 disabled={isLoading}
-                className="w-full py-5 bg-indigo-500 hover:bg-indigo-600 text-white font-extrabold text-lg rounded-2xl transition-all shadow-[0_8px_20px_rgba(99,102,241,0.3)] flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed hover:shadow-[0_12px_25px_rgba(99,102,241,0.4)] hover:-translate-y-1"
+                className="w-full py-5 bg-brand-purple hover:bg-[#2A1244] text-brand-yellow-light font-extrabold text-lg rounded-2xl transition-all shadow-[0_8px_20px_rgba(58,26,93,0.3)] flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed hover:shadow-[0_12px_25px_rgba(58,26,93,0.4)] hover:-translate-y-1"
               >
                 {isLoading ? (
                   <>

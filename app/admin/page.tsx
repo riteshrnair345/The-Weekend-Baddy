@@ -43,8 +43,8 @@ export default function WeekendBaddieApp() {
 
   if (isLoadingAuth) {
     return (
-      <div className="min-h-screen bg-[#fafafa] flex items-center justify-center">
-        <Loader2 className="w-8 h-8 text-indigo-500 animate-spin" />
+      <div className="min-h-screen bg-brand-yellow-light flex items-center justify-center">
+        <Loader2 className="w-8 h-8 text-brand-purple animate-spin" />
       </div>
     );
   }
@@ -54,7 +54,7 @@ export default function WeekendBaddieApp() {
   }
 
   return (
-    <div className="min-h-screen bg-[#fafafa] text-slate-800 font-sans selection:bg-indigo-100 relative overflow-hidden">
+    <div className="min-h-screen bg-brand-yellow-light text-brand-purple font-sans selection:bg-brand-pink/20 relative overflow-hidden">
       
       {/* Soft Background Image */}
       <div className="absolute inset-0 bg-[url('/badminton-bg.png')] bg-cover bg-center bg-no-repeat opacity-60 pointer-events-none mix-blend-multiply" />
@@ -76,8 +76,8 @@ export default function WeekendBaddieApp() {
                   onClick={() => setActiveTab("dashboard")}
                   className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm font-semibold transition-all ${
                     activeTab === "dashboard" 
-                      ? "bg-white text-indigo-600 shadow-sm border border-slate-200/50" 
-                      : "text-slate-500 hover:text-slate-700 hover:bg-slate-200/50"
+                      ? "bg-white text-brand-purple shadow-sm border border-brand-purple/20" 
+                      : "text-brand-purple/60 hover:text-brand-purple hover:bg-brand-purple/5"
                   }`}
                 >
                   <Users className="w-4 h-4" />
@@ -87,8 +87,8 @@ export default function WeekendBaddieApp() {
                   onClick={() => setActiveTab("scanner")}
                   className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm font-semibold transition-all ${
                     activeTab === "scanner" 
-                      ? "bg-white text-indigo-600 shadow-sm border border-slate-200/50" 
-                      : "text-slate-500 hover:text-slate-700 hover:bg-slate-200/50"
+                      ? "bg-white text-brand-purple shadow-sm border border-brand-purple/20" 
+                      : "text-brand-purple/60 hover:text-brand-purple hover:bg-brand-purple/5"
                   }`}
                 >
                   <Camera className="w-4 h-4" />
@@ -131,16 +131,16 @@ function LoginView({ onLogin }: { onLogin: () => void }) {
   };
 
   return (
-    <div className="min-h-screen bg-[#fafafa] flex flex-col items-center justify-center p-4 relative overflow-hidden">
+    <div className="min-h-screen bg-brand-yellow-light flex flex-col items-center justify-center p-4 relative overflow-hidden">
       <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-5 mix-blend-multiply pointer-events-none" />
-      <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-indigo-200/40 rounded-full blur-[100px] pointer-events-none" />
+      <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-brand-purple/10 rounded-full blur-[100px] pointer-events-none" />
 
-      <div className="w-full max-w-sm bg-white/90 backdrop-blur-xl border border-white/50 rounded-[2.5rem] p-8 shadow-[0_8px_40px_rgb(0,0,0,0.04)] animate-in fade-in zoom-in-95 duration-300 relative z-10">
-        <div className="w-14 h-14 rounded-2xl bg-indigo-50 border border-indigo-100 flex items-center justify-center mx-auto mb-6 shadow-sm">
-          <Lock className="w-7 h-7 text-indigo-500" />
+      <div className="w-full max-w-sm bg-white/90 backdrop-blur-xl border border-white/50 rounded-[2.5rem] p-8 shadow-[0_8px_40px_rgba(58,26,93,0.04)] animate-in fade-in zoom-in-95 duration-300 relative z-10">
+        <div className="w-14 h-14 rounded-2xl bg-brand-purple/10 border border-brand-purple/20 flex items-center justify-center mx-auto mb-6 shadow-sm">
+          <Lock className="w-7 h-7 text-brand-purple" />
         </div>
-        <h1 className="text-2xl font-black text-center text-slate-800 mb-2 tracking-tight">Admin Access</h1>
-        <p className="text-center text-slate-500 mb-8 text-sm font-medium">
+        <h1 className="text-2xl font-black text-center text-brand-purple mb-2 tracking-tight">Admin Access</h1>
+        <p className="text-center text-brand-purple/70 mb-8 text-sm font-medium">
           Please enter your secure PIN to access the management portal.
         </p>
 
@@ -157,8 +157,8 @@ function LoginView({ onLogin }: { onLogin: () => void }) {
               }}
               placeholder="••••"
               className={`w-full bg-white border ${
-                error ? "border-rose-300 focus:border-rose-500 focus:ring-rose-500/10" : "border-slate-200 focus:border-indigo-400 focus:ring-indigo-500/10"
-              } rounded-2xl px-4 py-4 text-center text-2xl font-mono text-slate-800 placeholder:text-slate-300 focus:outline-none focus:ring-4 transition-all shadow-inner font-bold`}
+                error ? "border-rose-300 focus:border-rose-500 focus:ring-rose-500/10" : "border-brand-purple/20 focus:border-brand-purple focus:ring-brand-purple/10"
+              } rounded-2xl px-4 py-4 text-center text-2xl font-mono text-brand-purple placeholder:text-brand-purple/30 focus:outline-none focus:ring-4 transition-all shadow-inner font-bold`}
               autoFocus
             />
             {error && (
@@ -169,7 +169,7 @@ function LoginView({ onLogin }: { onLogin: () => void }) {
           </div>
           <button
             type="submit"
-            className="w-full bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-4 px-4 rounded-2xl transition-all shadow-[0_8px_20px_rgba(99,102,241,0.25)] hover:shadow-[0_12px_25px_rgba(99,102,241,0.35)] hover:-translate-y-0.5"
+            className="w-full bg-brand-purple hover:bg-[#2A1244] text-brand-yellow-light font-bold py-4 px-4 rounded-2xl transition-all shadow-[0_8px_20px_rgba(58,26,93,0.25)] hover:shadow-[0_12px_25px_rgba(58,26,93,0.35)] hover:-translate-y-0.5"
           >
             Unlock App
           </button>
@@ -302,11 +302,11 @@ function ScannerView() {
             <div className="absolute inset-0 z-10 bg-white/95 backdrop-blur-sm flex flex-col items-center justify-center p-6 animate-in fade-in zoom-in-95 duration-200">
               {scanStatus === "scanning" && (
                 <div className="flex flex-col items-center">
-                  <div className="w-16 h-16 bg-indigo-50 rounded-full flex items-center justify-center mb-4">
-                    <Loader2 className="w-8 h-8 text-indigo-500 animate-spin" />
+                  <div className="w-16 h-16 bg-brand-purple/10 rounded-full flex items-center justify-center mb-4">
+                    <Loader2 className="w-8 h-8 text-brand-purple animate-spin" />
                   </div>
-                  <h3 className="text-xl font-bold text-slate-800 mb-1">Verifying</h3>
-                  <p className="text-slate-500 font-medium">{message}</p>
+                  <h3 className="text-xl font-bold text-brand-purple mb-1">Verifying</h3>
+                  <p className="text-brand-purple/70 font-medium">{message}</p>
                 </div>
               )}
 
@@ -439,9 +439,9 @@ function DashboardView() {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-        <div className="bg-white rounded-[2rem] p-6 border border-slate-200/60 shadow-[0_8px_30px_rgb(0,0,0,0.04)] flex items-center gap-5">
-          <div className="w-14 h-14 bg-indigo-50 rounded-2xl flex items-center justify-center border border-indigo-100">
-            <Users className="w-6 h-6 text-indigo-500" />
+        <div className="bg-white rounded-[2rem] p-6 border border-brand-purple/10 shadow-[0_8px_30px_rgba(58,26,93,0.04)] flex items-center gap-5">
+          <div className="w-14 h-14 bg-brand-purple/10 rounded-2xl flex items-center justify-center border border-brand-purple/20">
+            <Users className="w-6 h-6 text-brand-purple" />
           </div>
           <div>
             <p className="text-sm font-bold text-slate-500 uppercase tracking-wider mb-1">Total Registered</p>
@@ -463,9 +463,9 @@ function DashboardView() {
           <button
             onClick={fetchRoster}
             disabled={loading}
-            className="flex items-center justify-center gap-2 px-6 py-4 bg-white hover:bg-slate-50 disabled:opacity-50 text-slate-700 rounded-2xl font-bold transition-all border border-slate-200 shadow-sm"
+            className="flex items-center justify-center gap-2 px-6 py-4 bg-white hover:bg-brand-yellow-light disabled:opacity-50 text-brand-purple rounded-2xl font-bold transition-all border border-brand-purple/20 shadow-sm"
           >
-            <RefreshCw className={`w-5 h-5 ${loading && !isResetting ? "animate-spin text-indigo-500" : "text-slate-400"}`} />
+            <RefreshCw className={`w-5 h-5 ${loading && !isResetting ? "animate-spin text-brand-purple" : "text-brand-purple/60"}`} />
             Refresh Roster
           </button>
           
@@ -504,8 +504,8 @@ function DashboardView() {
                 {loading && roster.length === 0 ? (
                   <tr>
                     <td colSpan={4} className="px-6 py-16 text-center">
-                      <Loader2 className="w-10 h-10 text-indigo-500 animate-spin mx-auto mb-4" />
-                      <p className="text-slate-500 font-medium">Loading participants...</p>
+                      <Loader2 className="w-10 h-10 text-brand-purple animate-spin mx-auto mb-4" />
+                      <p className="text-brand-purple/70 font-medium">Loading participants...</p>
                     </td>
                   </tr>
                 ) : roster.length === 0 ? (
