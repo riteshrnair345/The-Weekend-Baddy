@@ -60,15 +60,26 @@ export default function Register() {
     localStorage.setItem('twb_register_draft', JSON.stringify(formData));
 
     try {
-      // Save pending registration to database so the webhook can find it later
-      await fetch('/api/register/pending', {
+      // Create a dynamic payment link
+      const res = await fetch('/api/create-payment-link', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone
+        }),
       });
 
-      // Redirect directly to the payment portal
-      window.location.href = "https://rzp.io/rzp/J5ERIpR";
+      const data = await res.json();
+
+      if (data.success && data.short_url) {
+        // Redirect directly to the unique payment portal
+        window.location.href = data.short_url;
+      } else {
+        setError(data.error || "Failed to create payment link. Please try again.");
+        setIsLoading(false);
+      }
     } catch (err) {
       console.error(err);
       setError("Something went wrong. Please try again.");
