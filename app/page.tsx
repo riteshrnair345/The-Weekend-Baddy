@@ -80,12 +80,14 @@ export default function LandingPage() {
               <span className="text-slate-500 font-medium">/ session</span>
             </div>
             
+            <div className="text-left font-bold text-slate-700 mb-4">Session Inclusions :</div>
             <ul className="text-left space-y-4 mb-10">
               {[
-                "2 Hours of Court Time",
-                "Feather Shuttles Included",
-                "Opponent Matchmaking",
-                "Access to Community WhatsApp"
+                "2hrs court time",
+                "Shuttles and refreshments included.",
+                "Opponent matchmaking.",
+                "Access to community.",
+                "Fun games and challenges."
               ].map((item, i) => (
                 <li key={i} className="flex items-center gap-3 text-slate-600 font-medium">
                   <div className="w-6 h-6 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center shrink-0">
