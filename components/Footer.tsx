@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import { Mail, Phone, MapPin } from 'lucide-react';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -43,21 +42,19 @@ export default function Footer() {
           <h4 className="text-lg font-bold text-white">Contact Us</h4>
           <ul className="space-y-3 text-sm font-medium">
             <li className="flex items-center gap-3">
-              <Mail className="w-4 h-4 text-brand-pink" />
-              <a href="mailto:support@theweekendbaddy.com" className="hover:text-brand-pink transition-colors">
-                [Your Email Here]
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-brand-pink">
+                <rect width="20" height="20" x="2" y="2" rx="5" ry="5"/>
+                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+                <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/>
+              </svg>
+              <a 
+                href="https://www.instagram.com/racketheadskochi__?igsh=MTZjNDRyamN3eGp1Mg==" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="hover:text-brand-pink transition-colors"
+              >
+                @racketheadskochi__
               </a>
-            </li>
-            <li className="flex items-center gap-3">
-              <Phone className="w-4 h-4 text-brand-pink" />
-              <span>+91 [Your Phone Number]</span>
-            </li>
-            <li className="flex items-start gap-3">
-              <MapPin className="w-4 h-4 text-brand-pink shrink-0 mt-0.5" />
-              <span className="leading-relaxed">
-                [Your Venue Name]<br/>
-                [Your Full Address Here]
-              </span>
             </li>
           </ul>
         </div>
