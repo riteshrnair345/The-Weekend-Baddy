@@ -59,8 +59,21 @@ export default function Register() {
     // Save draft so the user doesn't lose their data if they come back
     localStorage.setItem('twb_register_draft', JSON.stringify(formData));
 
-    // Redirect directly to the payment portal
-    window.location.href = "https://rzp.io/rzp/J5ERIpR";
+    try {
+      // Save pending registration to database so the webhook can find it later
+      await fetch('/api/register/pending', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+
+      // Redirect directly to the payment portal
+      window.location.href = "https://rzp.io/rzp/J5ERIpR";
+    } catch (err) {
+      console.error(err);
+      setError("Something went wrong. Please try again.");
+      setIsLoading(false);
+    }
   };
 
   if (ticketData) {

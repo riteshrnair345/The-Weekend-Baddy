@@ -6,7 +6,7 @@ if (!redisUrl) {
   throw new Error("Redis URL is missing! Database is not connected properly in Vercel Environment Variables.");
 }
 
-const kv = new Redis(redisUrl);
+export const kv = new Redis(redisUrl);
 
 // Define the player interface
 export interface Player {
@@ -88,4 +88,37 @@ export async function generateNextPlayerId(): Promise<string> {
   }
 
   return `TWB-${(maxId + 1).toString().padStart(3, '0')}`;
+}
+
+export interface PendingRegistration {
+  name: string;
+  email: string;
+  phone: string;
+  proficiency: string;
+  duration: string;
+  shoes: string;
+  heardFrom: string;
+}
+
+export async function savePendingRegistration(email: string, data: PendingRegistration): Promise<void> {
+  const key = `pending_reg:${email.toLowerCase()}`;
+  // Set with an expiration of 2 hours
+  await kv.set(key, JSON.stringify(data), 'EX', 7200);
+}
+
+export async function getPendingRegistration(email: string): Promise<PendingRegistration | null> {
+  const key = `pending_reg:${email.toLowerCase()}`;
+  const data = await kv.get(key);
+  if (!data) return null;
+  try {
+    return JSON.parse(data) as PendingRegistration;
+  } catch (e) {
+    console.error("Failed to parse pending reg from Redis", e);
+    return null;
+  }
+}
+
+export async function deletePendingRegistration(email: string): Promise<void> {
+  const key = `pending_reg:${email.toLowerCase()}`;
+  await kv.del(key);
 }
