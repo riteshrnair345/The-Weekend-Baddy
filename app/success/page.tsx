@@ -1,61 +1,62 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { Loader2, CheckCircle2 } from 'lucide-react';
 import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
 
-export default function SuccessPage() {
-  const [email, setEmail] = useState<string | null>(null);
+function SuccessPageContent() {
+  const searchParams = useSearchParams();
+  const paymentId = searchParams.get('razorpay_payment_id');
+  
   const [isPaid, setIsPaid] = useState(false);
   const [ticketData, setTicketData] = useState<{ qrId: string; name: string } | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    // 1. Get email from local storage
+    // 1. Get draft from local storage
     const draftStr = localStorage.getItem('twb_register_draft');
+    let draft = null;
+    
     if (draftStr) {
       try {
-        const draft = JSON.parse(draftStr);
-        if (draft.email) {
-          setEmail(draft.email);
-        } else {
-          setError("We couldn't find your email to verify the payment. Please check your inbox for the confirmation!");
-        }
+        draft = JSON.parse(draftStr);
       } catch (err) {
-        setError("Error reading local data. Please check your email for the ticket.");
+        console.error("Draft error", err);
       }
-    } else {
-      setError("No registration data found. If you paid, please check your email for the ticket!");
     }
-  }, []);
 
-  useEffect(() => {
-    if (!email || isPaid || error) return;
+    if (!paymentId) {
+      setError("No Payment ID found. If you just paid, please check your email for the ticket confirmation.");
+      return;
+    }
 
-    // 2. Poll the server every 2.5 seconds to see if Webhook marked them as Paid
-    const checkPaymentStatus = async () => {
+    // 2. Verify payment with backend
+    const verifyPayment = async () => {
       try {
-        const res = await fetch(`/api/player/status?email=${encodeURIComponent(email)}`);
+        const res = await fetch('/api/verify-redirect', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ paymentId, draft }),
+        });
+        
         const data = await res.json();
         
-        if (data.success && data.status === 'Paid') {
+        if (data.success) {
           setIsPaid(true);
           setTicketData({ qrId: data.qrId, name: data.name });
-          // Clear draft now that they are paid
           localStorage.removeItem('twb_register_draft');
+        } else {
+          setError(data.error || "Payment verification failed. Please check your email or contact support.");
         }
       } catch (err) {
-        console.error("Polling error", err);
+        console.error("Verification error", err);
+        setError("Network error while verifying payment. Please keep this Payment ID: " + paymentId);
       }
     };
 
-    // Check immediately
-    checkPaymentStatus();
-
-    // Then start polling
-    const interval = setInterval(checkPaymentStatus, 2500);
-    return () => clearInterval(interval);
-  }, [email, isPaid, error]);
+    verifyPayment();
+  }, [paymentId]);
 
   return (
     <div className="min-h-screen bg-brand-yellow-light flex items-center justify-center p-4">
@@ -68,8 +69,8 @@ export default function SuccessPage() {
         <div className="relative z-10">
           {error ? (
             <div className="space-y-6">
-              <h1 className="text-2xl font-black text-brand-purple">Payment Received?</h1>
-              <p className="text-brand-purple/70">{error}</p>
+              <h1 className="text-2xl font-black text-brand-purple">Payment Status</h1>
+              <p className="text-brand-purple/70 text-sm">{error}</p>
               <Link href="/">
                 <button className="w-full bg-brand-purple text-brand-yellow-light font-bold py-3 rounded-xl hover:bg-[#3a1a5d] transition-colors">
                   Return Home
@@ -82,7 +83,7 @@ export default function SuccessPage() {
               <div>
                 <h1 className="text-2xl font-black text-brand-purple mb-2">Verifying Payment...</h1>
                 <p className="text-brand-purple/70 text-sm">
-                  Please don't close this page. We are waiting for Razorpay to confirm your payment.
+                  We are securely confirming your payment with Razorpay.
                 </p>
               </div>
             </div>
@@ -121,5 +122,17 @@ export default function SuccessPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function SuccessPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-brand-yellow-light flex items-center justify-center">
+        <Loader2 className="w-16 h-16 text-brand-purple animate-spin" />
+      </div>
+    }>
+      <SuccessPageContent />
+    </Suspense>
   );
 }
