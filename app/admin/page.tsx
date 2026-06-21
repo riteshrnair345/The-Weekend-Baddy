@@ -64,9 +64,7 @@ export default function WeekendBaddieApp() {
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-full bg-gradient-to-tr from-indigo-500 to-purple-500 flex items-center justify-center shadow-sm">
-                <span className="text-white font-bold text-sm">WB</span>
-              </div>
+              <img src="/logo.jpg" alt="Logo" className="w-10 h-10 rounded-lg object-contain" />
               <h1 className="text-xl font-bold text-slate-800 tracking-tight hidden sm:block">
                 RacketHeads Kochi
               </h1>

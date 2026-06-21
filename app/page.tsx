@@ -17,9 +17,11 @@ export default function LandingPage() {
         
         {/* Hero Section */}
         <section className="w-full max-w-5xl mx-auto px-4 py-24 sm:py-32 flex flex-col items-center text-center">
-          <div className="w-20 h-20 bg-white rounded-[2rem] flex items-center justify-center font-black text-indigo-500 shadow-[0_8px_30px_rgb(0,0,0,0.08)] border border-slate-100 mb-8 rotate-3 hover:rotate-6 transition-transform">
-            <span className="text-3xl">RK</span>
-          </div>
+          <img 
+            src="/logo.jpg" 
+            alt="RacketHeads Kochi Logo" 
+            className="h-28 w-auto rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.08)] mb-8 rotate-3 hover:rotate-6 transition-transform object-contain" 
+          />
           
           <h1 className="text-5xl sm:text-7xl font-black tracking-tight text-slate-800 mb-6 drop-shadow-sm">
             RacketHeads <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 to-sky-500">Kochi</span>

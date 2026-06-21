@@ -11,9 +11,7 @@ export default function Footer() {
         {/* Brand Section */}
         <div className="space-y-4">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-indigo-500 rounded-xl flex items-center justify-center font-black text-white shadow-lg">
-              <span>RK</span>
-            </div>
+            <img src="/logo.jpg" alt="RacketHeads Kochi Logo" className="h-12 w-auto rounded-xl shadow-lg object-contain" />
             <h3 className="text-xl font-bold text-white tracking-tight">RacketHeads Kochi</h3>
           </div>
           <p className="text-sm text-slate-400 leading-relaxed max-w-sm">

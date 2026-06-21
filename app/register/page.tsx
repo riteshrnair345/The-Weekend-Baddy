@@ -197,9 +197,11 @@ export default function Register() {
         
         {/* Header */}
         <header className="mb-10 flex flex-col items-center justify-center">
-          <div className="w-16 h-16 bg-white rounded-3xl flex items-center justify-center font-black text-indigo-500 shadow-[0_8px_30px_rgb(0,0,0,0.06)] border border-slate-100 mb-6 rotate-3 hover:rotate-6 transition-transform">
-            <span className="text-2xl">RK</span>
-          </div>
+          <img 
+            src="/logo.jpg" 
+            alt="RacketHeads Kochi Logo" 
+            className="h-24 w-auto rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.06)] mb-6 rotate-3 hover:rotate-6 transition-transform object-contain" 
+          />
           <h1 className="text-4xl sm:text-5xl font-black tracking-tight text-slate-800 mb-3 text-center">
             RacketHeads Kochi
           </h1>
