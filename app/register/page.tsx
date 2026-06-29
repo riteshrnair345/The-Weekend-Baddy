@@ -10,7 +10,8 @@ export default function Register() {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
-    phone: '',
+    phone: '+91 ',
+    age: '',
     proficiency: '',
     duration: '',
     shoes: '',
@@ -71,7 +72,7 @@ export default function Register() {
     e.preventDefault();
     
     // Validation
-    if (!formData.name || !formData.email || !formData.phone || !formData.proficiency || !formData.duration || !formData.heardFrom) {
+    if (!formData.name || !formData.email || !formData.phone || !formData.age || !formData.proficiency || !formData.duration || !formData.heardFrom) {
       setError("Please fill out all fields before continuing.");
       return;
     }
@@ -91,6 +92,7 @@ export default function Register() {
           name: formData.name,
           email: formData.email,
           phone: formData.phone,
+          age: formData.age,
           proficiency: formData.proficiency,
           duration: formData.duration,
           shoes: 'Required',
@@ -163,7 +165,7 @@ export default function Register() {
           <button
             onClick={() => {
               setTicketData(null);
-              const blankForm = { name: '', email: '', phone: '', proficiency: '', duration: '', shoes: '', heardFrom: '' };
+              const blankForm = { name: '', email: '', phone: '+91 ', age: '', proficiency: '', duration: '', shoes: '', heardFrom: '' };
               setFormData(blankForm);
               localStorage.removeItem('twb_register_draft');
             }}
@@ -317,7 +319,24 @@ export default function Register() {
                   name="phone"
                   value={formData.phone}
                   onChange={handleChange}
-                  placeholder="+1 (555) 000-0000"
+                  placeholder="+91 99999 99999"
+                  className="w-full bg-white border border-brand-purple/20 rounded-2xl px-5 py-4 text-brand-purple focus:outline-none focus:ring-4 focus:ring-brand-purple/10 focus:border-brand-purple transition-all placeholder:text-brand-purple/40 shadow-sm font-medium"
+                />
+              </div>
+
+              {/* 3b. Age */}
+              <div className="space-y-3">
+                <label className="text-sm font-bold text-brand-purple ml-1 flex items-center gap-2">
+                  <User className="w-4 h-4 text-brand-pink" /> Age <span className="text-brand-pink">*</span>
+                </label>
+                <input
+                  type="number"
+                  name="age"
+                  value={formData.age}
+                  onChange={handleChange}
+                  placeholder="e.g. 24"
+                  min="1"
+                  max="100"
                   className="w-full bg-white border border-brand-purple/20 rounded-2xl px-5 py-4 text-brand-purple focus:outline-none focus:ring-4 focus:ring-brand-purple/10 focus:border-brand-purple transition-all placeholder:text-brand-purple/40 shadow-sm font-medium"
                 />
               </div>

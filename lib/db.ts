@@ -15,6 +15,7 @@ export interface Player {
   name: string;
   email: string;
   phone: string;
+  age?: string;
   proficiency: string;
   duration: string;
   shoes: string;
@@ -94,6 +95,7 @@ export interface PendingRegistration {
   name: string;
   email: string;
   phone: string;
+  age?: string;
   proficiency: string;
   duration: string;
   shoes: string;
