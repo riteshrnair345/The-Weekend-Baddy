@@ -20,6 +20,11 @@ export default function Register() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [ticketData, setTicketData] = useState<{ qrId: string; name: string } | null>(null);
+  
+  // Registration limit states
+  const [isCheckingStatus, setIsCheckingStatus] = useState(true);
+  const [isFull, setIsFull] = useState(false);
+  const [spotsLeft, setSpotsLeft] = useState<number | null>(null);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const newFormData = { ...formData, [e.target.name]: e.target.value };
@@ -34,6 +39,7 @@ export default function Register() {
   };
 
   useEffect(() => {
+    // 1. Fetch Draft Data
     const draft = localStorage.getItem('twb_register_draft');
     if (draft) {
       try {
@@ -42,6 +48,23 @@ export default function Register() {
         console.error('Failed to parse draft form data');
       }
     }
+
+    // 2. Fetch Registration Status
+    const checkStatus = async () => {
+      try {
+        const res = await fetch('/api/registration-status');
+        const data = await res.json();
+        if (data.success) {
+          setIsFull(data.isFull);
+          setSpotsLeft(data.maxSlots - data.count);
+        }
+      } catch (err) {
+        console.error('Failed to check registration status', err);
+      } finally {
+        setIsCheckingStatus(false);
+      }
+    };
+    checkStatus();
   }, []);
 
   const handlePayment = async (e: React.FormEvent) => {
@@ -147,6 +170,51 @@ export default function Register() {
     );
   }
 
+  if (isCheckingStatus) {
+    return (
+      <div className="min-h-screen bg-brand-yellow-light flex items-center justify-center p-4">
+        <Loader2 className="w-16 h-16 text-brand-purple animate-spin" />
+      </div>
+    );
+  }
+
+  if (isFull) {
+    return (
+      <div className="min-h-screen bg-brand-yellow-light text-brand-purple p-4 sm:p-8 flex flex-col items-center justify-center selection:bg-brand-pink/20 relative overflow-hidden">
+        {/* Soft Background Image */}
+        <div className="absolute inset-0 bg-[url('/badminton-bg.png')] bg-cover bg-center bg-no-repeat opacity-40 pointer-events-none mix-blend-multiply" />
+        
+        <div className="max-w-md w-full bg-white/90 backdrop-blur-xl border border-white/50 rounded-[2.5rem] p-8 text-center space-y-6 shadow-[0_8px_40px_rgb(0,0,0,0.04)] relative z-10">
+          
+          <div className="mx-auto w-20 h-20 bg-rose-50 rounded-full flex items-center justify-center mb-4 shadow-sm border border-rose-100">
+            <User className="w-10 h-10 text-rose-500" />
+          </div>
+          
+          <div>
+            <h1 className="text-3xl font-extrabold tracking-tight mb-2 text-brand-purple">
+              We are full! 😔
+            </h1>
+            <p className="text-brand-purple/70 text-sm font-medium">
+              We have already reached our maximum capacity of 20 players for this event. 
+            </p>
+          </div>
+
+          <div className="bg-brand-pink/10 border border-brand-pink/20 rounded-2xl p-4 text-center">
+            <p className="text-brand-purple text-sm font-medium leading-relaxed">
+              Stay tuned to our Instagram page for announcements regarding the next event!
+            </p>
+          </div>
+
+          <Link href="/">
+            <button className="w-full mt-4 bg-brand-purple hover:bg-[#2A1244] text-brand-yellow-light font-bold py-4 rounded-2xl transition-all shadow-sm">
+              Return Home
+            </button>
+          </Link>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-brand-yellow-light text-brand-purple p-4 sm:p-8 flex flex-col items-center justify-center selection:bg-brand-pink/20 relative overflow-hidden">
       <Script src="https://checkout.razorpay.com/v1/checkout.js" strategy="lazyOnload" />
@@ -174,6 +242,12 @@ export default function Register() {
           <h1 className="text-4xl sm:text-5xl font-black tracking-tight text-brand-purple mb-3 text-center">
             RacketHeads Kochi
           </h1>
+          {spotsLeft !== null && spotsLeft <= 5 && spotsLeft > 0 && (
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-rose-50 border border-rose-100 text-rose-600 text-sm font-semibold shadow-sm">
+              <Sparkles className="w-4 h-4" />
+              Only {spotsLeft} {spotsLeft === 1 ? 'spot' : 'spots'} left!
+            </div>
+          )}
         </header>
 
         {/* Form Container */}

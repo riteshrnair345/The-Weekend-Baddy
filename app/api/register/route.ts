@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { getPlayerByEmail, generateNextPlayerId, upsertPlayer, Player } from '@/lib/db';
+import { getPlayerByEmail, generateNextPlayerId, upsertPlayer, Player, getPlayers } from '@/lib/db';
 import nodemailer from 'nodemailer';
 
 export async function POST(request: Request) {
@@ -9,6 +9,14 @@ export async function POST(request: Request) {
 
     if (!name || !email || !phone) {
       return NextResponse.json({ success: false, error: 'Missing required fields' }, { status: 400 });
+    }
+
+    // Enforce 20 player limit
+    const playersList = await getPlayers();
+    const isExisting = playersList.some(p => p.email.toLowerCase() === email.toLowerCase());
+    
+    if (playersList.length >= 20 && !isExisting) {
+      return NextResponse.json({ success: false, error: 'Registration is full. We have reached the 20 player limit.' }, { status: 403 });
     }
 
     // Check if player already exists
