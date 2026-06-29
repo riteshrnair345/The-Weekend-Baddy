@@ -60,24 +60,29 @@ export default function Register() {
     localStorage.setItem('twb_register_draft', JSON.stringify(formData));
 
     try {
-      // Create a dynamic payment link
-      const res = await fetch('/api/create-payment-link', {
+      // Direct Registration without payment
+      const res = await fetch('/api/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           name: formData.name,
           email: formData.email,
-          phone: formData.phone
+          phone: formData.phone,
+          proficiency: formData.proficiency,
+          duration: formData.duration,
+          shoes: formData.shoes,
+          heardFrom: formData.heardFrom
         }),
       });
 
       const data = await res.json();
 
-      if (data.success && data.short_url) {
-        // Redirect directly to the unique payment portal
-        window.location.href = data.short_url;
+      if (data.success && data.qrId) {
+        // Show success state instantly
+        setTicketData({ qrId: data.qrId, name: data.name });
+        setIsLoading(false);
       } else {
-        setError(data.error || "Failed to create payment link. Please try again.");
+        setError(data.error || "Failed to register. Please try again.");
         setIsLoading(false);
       }
     } catch (err) {
@@ -169,10 +174,6 @@ export default function Register() {
           <h1 className="text-4xl sm:text-5xl font-black tracking-tight text-brand-purple mb-3 text-center">
             RacketHeads Kochi
           </h1>
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-50 border border-emerald-100 text-emerald-600 text-sm font-semibold shadow-sm">
-            <Sparkles className="w-4 h-4" />
-            Entry Fee: ₹150 / session
-          </div>
         </header>
 
         {/* Form Container */}
@@ -288,7 +289,7 @@ export default function Register() {
               {/* 6. Non-marking shoes - Pill Selection */}
               <div className="space-y-4 md:col-span-2">
                 <label className="text-sm font-bold text-brand-purple ml-1 flex items-center gap-2">
-                  <Zap className="w-4 h-4 text-brand-pink" /> Do you have non-marking shoes? <span className="text-brand-pink">*</span>
+                  <Zap className="w-4 h-4 text-brand-pink" /> Compulsory non-marking shoes required <span className="text-brand-pink">*</span>
                 </label>
                 <div className="flex gap-4">
                   {['Yes', 'No'].map((ans) => (
@@ -346,8 +347,8 @@ export default function Register() {
                   </>
                 ) : (
                   <>
-                    <CreditCard className="w-6 h-6" />
-                    Pay
+                    <User className="w-6 h-6" />
+                    Register
                   </>
                 )}
               </button>

@@ -1,30 +1,14 @@
 import { NextResponse } from 'next/server';
 import { getPlayerByEmail, generateNextPlayerId, upsertPlayer, Player } from '@/lib/db';
 import nodemailer from 'nodemailer';
-import crypto from 'crypto';
 
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { name, email, phone, proficiency, duration, shoes, heardFrom, razorpay_payment_id, razorpay_order_id, razorpay_signature } = body;
+    const { name, email, phone, proficiency, duration, shoes, heardFrom } = body;
 
     if (!name || !email || !phone) {
       return NextResponse.json({ success: false, error: 'Missing required fields' }, { status: 400 });
-    }
-
-    if (!razorpay_payment_id || !razorpay_order_id || !razorpay_signature) {
-      return NextResponse.json({ success: false, error: 'Payment details missing' }, { status: 400 });
-    }
-
-    const key_secret = process.env.RAZORPAY_KEY_SECRET || 'YourMockKeySecret';
-    const bodyToSign = razorpay_order_id + "|" + razorpay_payment_id;
-    const expectedSignature = crypto
-      .createHmac("sha256", key_secret)
-      .update(bodyToSign.toString())
-      .digest("hex");
-
-    if (expectedSignature !== razorpay_signature) {
-      return NextResponse.json({ success: false, error: 'Invalid payment signature' }, { status: 400 });
     }
 
     // Check if player already exists
@@ -32,10 +16,7 @@ export async function POST(request: Request) {
     const now = new Date().toISOString();
 
     if (player) {
-      // If player exists, we just update their latest answers but don't reset their stats
-      // Wait, if they re-register, maybe we just return their existing QR code.
-      // We will just generate a new QR_ID for this specific registration/event or use their permanent one.
-      // Let's use a permanent QR ID for simplicity.
+      // If player exists, we update their latest answers and reset check-in status
       player = {
         ...player,
         name,
@@ -45,8 +26,7 @@ export async function POST(request: Request) {
         shoes,
         heardFrom,
         checkInStatus: 'Pending', // Reset to pending for the new event
-        razorpay_payment_id,
-        payment_status: 'Paid',
+        payment_status: 'Free',
       };
     } else {
       // New player
@@ -71,8 +51,7 @@ export async function POST(request: Request) {
         eventsAttended: 0,
         checkInStatus: 'Pending',
         timeWhenCheckedIn: null,
-        razorpay_payment_id,
-        payment_status: 'Paid',
+        payment_status: 'Free',
       };
     }
 
@@ -81,7 +60,9 @@ export async function POST(request: Request) {
     // Send email with QR code if credentials exist
     if (process.env.EMAIL_USER && process.env.EMAIL_PASSWORD) {
       const transporter = nodemailer.createTransport({
-        service: 'gmail',
+        host: process.env.SMTP_HOST || 'smtp.gmail.com',
+        port: parseInt(process.env.SMTP_PORT || '465', 10),
+        secure: process.env.SMTP_PORT === '465' ? true : false,
         auth: {
           user: process.env.EMAIL_USER,
           pass: process.env.EMAIL_PASSWORD,
