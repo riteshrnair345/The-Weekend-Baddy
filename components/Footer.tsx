@@ -14,7 +14,7 @@ export default function Footer() {
             <h3 className="text-xl font-bold text-white tracking-tight">RacketHeads Kochi</h3>
           </div>
           <p className="text-sm text-brand-yellow-light/60 leading-relaxed max-w-sm">
-            A Badminton community — play, compete, connect.
+            A Badminton Community — Play, Compete, Connect.
           </p>
         </div>
 

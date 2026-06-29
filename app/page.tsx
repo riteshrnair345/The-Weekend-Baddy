@@ -28,7 +28,7 @@ export default function LandingPage() {
           </h1>
           
           <p className="text-lg sm:text-xl text-brand-purple/70 font-medium max-w-2xl mb-12 leading-relaxed">
-            A Badminton community — play, compete, connect.
+            A Badminton Community — Play, Compete, Connect.
           </p>
           
           <Link 
