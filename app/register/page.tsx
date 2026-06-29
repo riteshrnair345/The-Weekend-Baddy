@@ -71,7 +71,7 @@ export default function Register() {
     e.preventDefault();
     
     // Validation
-    if (!formData.name || !formData.email || !formData.phone || !formData.proficiency || !formData.duration || !formData.shoes || !formData.heardFrom) {
+    if (!formData.name || !formData.email || !formData.phone || !formData.proficiency || !formData.duration || !formData.heardFrom) {
       setError("Please fill out all fields before continuing.");
       return;
     }
@@ -93,7 +93,7 @@ export default function Register() {
           phone: formData.phone,
           proficiency: formData.proficiency,
           duration: formData.duration,
-          shoes: formData.shoes,
+          shoes: 'Required',
           heardFrom: formData.heardFrom
         }),
       });
@@ -360,25 +360,18 @@ export default function Register() {
                 </div>
               </div>
 
-              {/* 6. Non-marking shoes - Pill Selection */}
+              {/* 6. Non-marking shoes - Disclaimer */}
               <div className="space-y-4 md:col-span-2">
-                <label className="text-sm font-bold text-brand-purple ml-1 flex items-center gap-2">
-                  <Zap className="w-4 h-4 text-brand-pink" /> Compulsory non-marking shoes required <span className="text-brand-pink">*</span>
-                </label>
-                <div className="flex gap-4">
-                  {['Yes', 'No'].map((ans) => (
-                    <div
-                      key={ans}
-                      onClick={() => handleSelect('shoes', ans)}
-                      className={`cursor-pointer flex-1 rounded-2xl py-4 text-center border-2 transition-all duration-200 ${
-                        formData.shoes === ans 
-                        ? 'border-brand-purple bg-brand-yellow text-brand-purple shadow-sm' 
-                        : 'border-transparent bg-white border-brand-purple/10 text-brand-purple/70 hover:bg-brand-purple/5 hover:text-brand-purple shadow-sm'
-                      }`}
-                    >
-                      <span className="font-extrabold text-lg">{ans}</span>
-                    </div>
-                  ))}
+                <div className="bg-brand-pink/10 border border-brand-pink/20 rounded-2xl p-5 flex items-start gap-4 text-left shadow-sm">
+                  <Zap className="w-6 h-6 text-brand-pink shrink-0 mt-0.5" />
+                  <div>
+                    <h3 className="text-brand-purple font-extrabold text-base mb-1">
+                      Compulsory non-marking shoes required <span className="text-brand-pink">*</span>
+                    </h3>
+                    <p className="text-brand-purple/70 text-sm font-medium leading-relaxed">
+                      To protect the courts, all players must bring non-marking shoes to participate. 
+                    </p>
+                  </div>
                 </div>
               </div>
 
