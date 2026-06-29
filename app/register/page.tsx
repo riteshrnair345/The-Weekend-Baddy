@@ -133,9 +133,15 @@ export default function Register() {
             <h1 className="text-3xl font-extrabold tracking-tight mb-2 text-brand-purple">
               You're In, {ticketData.name}! 🎉
             </h1>
-            <p className="text-brand-purple/70 text-sm font-medium">
+            <p className="text-brand-purple/70 text-sm font-medium mb-3">
               We've emailed you a copy of your ticket. Get ready for an amazing session!
             </p>
+            <div className="bg-rose-50 border border-rose-100 rounded-xl p-3 inline-block">
+              <p className="text-rose-600 text-xs font-bold uppercase tracking-wider mb-1">Important</p>
+              <p className="text-rose-700 text-sm font-medium">
+                Please check your <strong className="font-extrabold">Spam or Junk folder</strong> if you don't see the email in your main inbox!
+              </p>
+            </div>
           </div>
 
           <div className="bg-white p-4 rounded-3xl inline-block shadow-sm mx-auto border border-slate-100">
