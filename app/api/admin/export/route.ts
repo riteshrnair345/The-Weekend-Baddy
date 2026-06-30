@@ -17,14 +17,14 @@ export async function GET(request: Request) {
     const zip = new JSZip();
     
     // 1. Define the CSV header
-    const headers = ['Name', 'Phone Number', 'Age', 'Proficiency', 'Duration', 'Heard From', 'Registration Date', 'Image Filename'];
+    const headers = ['Name', 'Phone Number', 'Age', 'Proficiency', 'Duration', 'Heard From', 'Registration Date', 'Image Filename', 'QR Code URL'];
     
     // Map players to CSV rows and fetch their QR codes
     const qrcodeFolder = zip.folder("qrcodes");
     
     // We will do this sequentially to avoid rate limits from the qrserver, 
     // or we can use Promise.all if the player count is small. 
-    // Since max is 20 players, Promise.all is fine and fast.
+    // Since max is 3 players, Promise.all is fine and fast.
     const rows = await Promise.all(players.map(async (player) => {
       // Create a clean filename for the user: RHK_[name of the player]
       const cleanName = player.name.replace(/\s+/g, '_');
@@ -62,7 +62,8 @@ export async function GET(request: Request) {
         `"${player.duration}"`,
         `"${player.heardFrom}"`,
         `"${new Date(player.firstSeen).toLocaleString()}"`,
-        `"${filename}"`
+        `"${filename}"`,
+        `"${qrCodeUrl}"`
       ].join(',');
     }));
     

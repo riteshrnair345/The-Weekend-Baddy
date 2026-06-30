@@ -1,0 +1,13 @@
+hashlib
+os
+smtplib
+sqlite3
+datetime
+email.mime.image
+email.mime.multipart
+email.mime.text 
+flask 
+qrcode
+pandas
+pywhatkit
+pyautogui

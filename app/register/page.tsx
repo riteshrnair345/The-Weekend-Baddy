@@ -191,7 +191,7 @@ export default function Register() {
               We are full! 😔
             </h1>
             <p className="text-brand-purple/70 text-sm font-medium">
-              We have already reached our maximum capacity of 20 players for this event. 
+              We have already reached our maximum capacity of 3 players for this event. 
             </p>
           </div>
 

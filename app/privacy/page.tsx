@@ -9,13 +9,13 @@ export default function PrivacyPage() {
     <div className="min-h-screen bg-brand-yellow-light text-brand-purple flex flex-col selection:bg-brand-pink/20">
       <div className="max-w-4xl mx-auto px-4 py-20 flex-grow">
         <h1 className="text-4xl font-black mb-8 text-brand-purple">Privacy Policy</h1>
-        
+
         <div className="prose prose-slate max-w-none space-y-6">
           <p className="font-medium text-slate-600">Last updated: {new Date().toLocaleDateString()}</p>
-          
+
           <h2 className="text-2xl font-bold text-slate-800 mt-8">1. Information We Collect</h2>
           <p>
-            When you register for a session, we collect personal information such as your name, email address, phone number, age, and skill level. 
+            When you register for a session, we collect personal information such as your name, email address, phone number, age, and skill level.
             All our community sessions are currently free to attend, so no payment information or credit card details are collected or stored.
           </p>
 
