@@ -118,8 +118,6 @@ export default function Register() {
   };
 
   if (ticketData) {
-    const qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&color=3a1a5d&bgcolor=ffffff&data=${encodeURIComponent(ticketData.qrId)}`;
-    
     return (
       <div className="min-h-screen bg-brand-yellow-light text-brand-purple flex flex-col items-center justify-center p-4 selection:bg-brand-pink/20 relative overflow-hidden">
         {/* Soft Background Image */}
@@ -136,30 +134,20 @@ export default function Register() {
               You're In, {ticketData.name}! 🎉
             </h1>
             <p className="text-brand-purple/70 text-sm font-medium mb-3">
-              We've emailed you a copy of your ticket. Get ready for an amazing session!
+              We've successfully registered you for the session!
             </p>
+            <div className="bg-emerald-50 border border-emerald-100 rounded-xl p-4 inline-block mb-4">
+              <h2 className="text-emerald-700 text-sm font-extrabold uppercase tracking-wider mb-2">🎟️ Ticket Sent to Email</h2>
+              <p className="text-emerald-800 text-sm font-medium">
+                We've emailed your digital ticket with the QR code. Please check your email and have it ready at the venue!
+              </p>
+            </div>
             <div className="bg-rose-50 border border-rose-100 rounded-xl p-3 inline-block">
               <p className="text-rose-600 text-xs font-bold uppercase tracking-wider mb-1">Important</p>
               <p className="text-rose-700 text-sm font-medium">
                 Please check your <strong className="font-extrabold">Spam or Junk folder</strong> if you don't see the email in your main inbox!
               </p>
             </div>
-          </div>
-
-          <div className="bg-white p-4 rounded-3xl inline-block shadow-sm mx-auto border border-slate-100">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img 
-              src={qrCodeUrl} 
-              alt="Your QR Code Ticket" 
-              className="w-64 h-64 object-contain rounded-xl"
-            />
-          </div>
-
-          <div className="bg-brand-pink/10 border border-brand-pink/20 rounded-2xl p-4 flex items-start gap-3 text-left">
-            <Info className="w-5 h-5 text-brand-pink shrink-0 mt-0.5" />
-            <p className="text-brand-purple text-sm font-medium leading-relaxed">
-              Take a quick screenshot of this code to show at the entrance!
-            </p>
           </div>
 
           <button
