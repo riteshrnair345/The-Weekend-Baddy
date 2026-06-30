@@ -63,7 +63,7 @@ export async function GET(request: Request) {
     // Generate the zip file buffer
     const zipBuffer = await zip.generateAsync({ type: "nodebuffer" });
     
-    return new NextResponse(zipBuffer, {
+    return new NextResponse(zipBuffer as unknown as BodyInit, {
       status: 200,
       headers: {
         'Content-Type': 'application/zip',
