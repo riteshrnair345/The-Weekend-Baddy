@@ -15,10 +15,11 @@ export async function GET(request: Request) {
     const players = await getPlayers();
     
     // Define the CSV header
-    const headers = ['Name', 'Phone Number', 'Age', 'Proficiency', 'Duration', 'Heard From', 'Registration Date'];
+    const headers = ['Name', 'Phone Number', 'Age', 'Proficiency', 'Duration', 'Heard From', 'Registration Date', 'QR Code URL'];
     
     // Map players to CSV rows
     const rows = players.map(player => {
+      const qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(player.qrId)}`;
       return [
         `"${player.name.replace(/"/g, '""')}"`,
         `"${player.phone.replace(/"/g, '""')}"`,
@@ -26,7 +27,8 @@ export async function GET(request: Request) {
         `"${player.proficiency}"`,
         `"${player.duration}"`,
         `"${player.heardFrom}"`,
-        `"${new Date(player.firstSeen).toLocaleString()}"`
+        `"${new Date(player.firstSeen).toLocaleString()}"`,
+        `"${qrCodeUrl}"`
       ].join(',');
     });
     
