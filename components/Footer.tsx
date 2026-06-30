@@ -66,7 +66,7 @@ export default function Footer() {
                 rel="noopener noreferrer"
                 className="hover:text-emerald-400 transition-colors"
               >
-                Join WhatsApp Broadcast
+                WhatsApp Community
               </a>
             </li>
           </ul>
