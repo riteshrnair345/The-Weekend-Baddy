@@ -26,9 +26,9 @@ export async function GET(request: Request) {
     // or we can use Promise.all if the player count is small. 
     // Since max is 20 players, Promise.all is fine and fast.
     const rows = await Promise.all(players.map(async (player) => {
-      // Create a clean filename for the user
-      const cleanName = player.name.replace(/[^a-z0-9]/gi, '_').toLowerCase();
-      const filename = `${cleanName}_${player.id}.png`;
+      // Create a clean filename for the user: RHK_[name of the player]
+      const cleanName = player.name.replace(/\s+/g, '_');
+      const filename = `RHK_${cleanName}.png`;
       
       const qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(player.qrId)}`;
       
