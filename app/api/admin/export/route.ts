@@ -45,9 +45,18 @@ export async function GET(request: Request) {
         console.error(`Failed to fetch QR for ${player.name}:`, err);
       }
       
+      let formattedPhone = (player.phone || '').trim().replace(/\s+/g, '');
+      if (!formattedPhone.startsWith('+')) {
+        if (formattedPhone.startsWith('91') && formattedPhone.length > 10) {
+          formattedPhone = '+' + formattedPhone;
+        } else {
+          formattedPhone = '+91' + formattedPhone;
+        }
+      }
+
       return [
         `"${player.name.replace(/"/g, '""')}"`,
-        `"${player.phone.replace(/"/g, '""')}"`,
+        `"${formattedPhone}"`,
         `"${player.age || ''}"`,
         `"${player.proficiency}"`,
         `"${player.duration}"`,

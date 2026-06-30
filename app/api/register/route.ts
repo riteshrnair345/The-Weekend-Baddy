@@ -11,6 +11,15 @@ export async function POST(request: Request) {
       return NextResponse.json({ success: false, error: 'Missing required fields' }, { status: 400 });
     }
 
+    let formattedPhone = phone.trim().replace(/\s+/g, '');
+    if (!formattedPhone.startsWith('+')) {
+      if (formattedPhone.startsWith('91') && formattedPhone.length > 10) {
+        formattedPhone = '+' + formattedPhone;
+      } else {
+        formattedPhone = '+91' + formattedPhone;
+      }
+    }
+
     // Enforce 20 player limit
     const playersList = await getPlayers();
     const isExisting = playersList.some(p => p.email.toLowerCase() === email.toLowerCase());
@@ -28,7 +37,7 @@ export async function POST(request: Request) {
       player = {
         ...player,
         name,
-        phone,
+        phone: formattedPhone,
         age,
         proficiency,
         duration,
@@ -50,7 +59,7 @@ export async function POST(request: Request) {
         qrId,
         name,
         email,
-        phone,
+        phone: formattedPhone,
         age,
         proficiency,
         duration,
@@ -89,7 +98,7 @@ export async function POST(request: Request) {
           <p><strong>Sign up details:</strong><br/>
           Name: ${player.name}<br/>
           Proficiency: ${player.proficiency}<br/>
-          Phone Number: ${player.phone}</p>
+          Phone Number: ${formattedPhone}</p>
           
           <p>Get ready for an epic session—we have a great mix of competitive match play lined up alongside some custom challenges and fun group games!</p>
           
