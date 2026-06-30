@@ -474,7 +474,7 @@ function DashboardView() {
             className="flex items-center justify-center gap-2 px-6 py-4 bg-emerald-50 hover:bg-emerald-100 text-emerald-700 rounded-2xl font-bold transition-all border border-emerald-100 shadow-sm"
           >
             <Download className="w-5 h-5" />
-            Download CSV
+            Download CSV & QR Codes
           </button>
           
           <button
