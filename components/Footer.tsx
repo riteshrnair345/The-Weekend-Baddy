@@ -19,6 +19,7 @@ export default function Footer() {
         </div>
 
         {/* Quick Links */}
+
         <div className="space-y-4">
           <h4 className="text-lg font-bold text-white">Legal & Policies</h4>
           <ul className="space-y-2 text-sm font-medium">
@@ -66,7 +67,7 @@ export default function Footer() {
                 rel="noopener noreferrer"
                 className="hover:text-emerald-400 transition-colors"
               >
-                WhatsApp Community
+                Join WhatsApp Broadcast
               </a>
             </li>
           </ul>
