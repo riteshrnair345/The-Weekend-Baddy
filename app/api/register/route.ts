@@ -84,14 +84,22 @@ export async function POST(request: Request) {
       const htmlBody = `
         <div style="font-family: Arial, sans-serif; color: #000; font-size: 14px; line-height: 1.6;">
           <p>Hi ${player.name},</p>
-          <p>You're officially signed up for RacketHeads Kochi! Here are your details:</p>
-          <p style="margin-left: 20px;">
-            Player ID &nbsp;: ${player.id}<br/>
-            Proficiency : ${player.duration}
-          </p>
-          <p>Your entry pass (QR code) is attached to this email. Please show it when you arrive at the venue — we'll scan it to check you in.</p>
-          <p>Save this email — your Player ID stays the same for all future sessions.</p>
-          <p>See you on the court! 🏸🏸🏸🏸🏸<br/>
+          <p>You're officially signed up for the community session of RacketHeads Kochi!</p>
+          
+          <p><strong>Sign up details:</strong><br/>
+          Name: ${player.name}<br/>
+          Proficiency: ${player.proficiency}<br/>
+          Phone Number: ${player.phone}</p>
+          
+          <p>Get ready for an epic session—we have a great mix of competitive match play lined up alongside some custom challenges and fun group games!</p>
+          
+          <p>📲 <strong>Your Entry Pass:</strong> Your personal QR code is attached to this email. Please have it ready on your phone when you arrive at the venue so we can quickly scan you in.</p>
+          
+          <p>👟 <strong>Gear Reminder:</strong> Please remember to bring your own racket and strict non-marking indoor shoes to the court.</p>
+          
+          <p>See you on the court!</p>
+          
+          <p>Cheers,<br/>
           RacketHeads Kochi Team</p>
         </div>
       `;
@@ -100,7 +108,7 @@ export async function POST(request: Request) {
         await transporter.sendMail({
           from: `"RacketHeads Kochi" <${process.env.EMAIL_USER}>`,
           to: player.email,
-          subject: 'Your RacketHeads Kochi Ticket 🎟️',
+          subject: "🏸 You're in! Welcome to The Weekend Baddys",
           html: htmlBody,
           attachments: [
             {
