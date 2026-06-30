@@ -15,8 +15,8 @@ export default function PrivacyPage() {
           
           <h2 className="text-2xl font-bold text-slate-800 mt-8">1. Information We Collect</h2>
           <p>
-            When you register for a session, we collect personal information such as your name, email address, phone number, and skill level (proficiency/duration playing). 
-            We also process payment information through our secure payment gateway (Razorpay). We do not store your raw credit card or UPI details on our servers.
+            When you register for a session, we collect personal information such as your name, email address, phone number, age, and skill level. 
+            All our community sessions are currently free to attend, so no payment information or credit card details are collected or stored.
           </p>
 
           <h2 className="text-2xl font-bold text-slate-800 mt-8">2. How We Use Your Information</h2>

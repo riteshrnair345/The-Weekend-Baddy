@@ -23,15 +23,15 @@ export default function TermsPage() {
             You must be at least 18 years old to book a session independently. Minors must be accompanied by an adult or have explicit guardian consent.
           </p>
 
-          <h2 className="text-2xl font-bold text-slate-800 mt-8">3. Booking & Payment</h2>
+          <h2 className="text-2xl font-bold text-slate-800 mt-8">3. Booking & Registration</h2>
           <p>
-            All bookings must be made through our official website. The standard session fee is ₹150, which includes court access and shared shuttles. Payment must be completed in full to secure your spot.
+            All bookings must be made through our official website. Our community sessions are currently free to attend, but registration is strictly required to secure your spot. Walk-ins without a registered QR code will not be allowed on the court.
           </p>
 
           <h2 className="text-2xl font-bold text-slate-800 mt-8">4. Service Delivery Policy (Offline Service)</h2>
           <p>
             RacketHeads Kochi provides an <strong>offline, physical service</strong> (badminton court access and community matchmaking). 
-            Upon successful payment, you will receive an entry pass (QR code) via email. No physical goods will be shipped to you. 
+            Upon successful registration, you will receive an entry pass (QR code) via email. No physical goods will be shipped to you. 
             The service is deemed "delivered" when you attend the scheduled session.
           </p>
 
