@@ -53,7 +53,7 @@ export default function Footer() {
                 rel="noopener noreferrer" 
                 className="hover:text-brand-pink transition-colors"
               >
-                @racketheadskochi__
+                Instagram
               </a>
             </li>
             <li className="flex items-center gap-3">

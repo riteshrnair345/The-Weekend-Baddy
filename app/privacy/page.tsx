@@ -30,7 +30,7 @@ export default function PrivacyPage() {
 
           <h2 className="text-2xl font-bold text-slate-800 mt-8">3. Data Sharing</h2>
           <p>
-            We do not sell, rent, or trade your personal information to third parties. We may share necessary data with trusted service providers (e.g., payment processors, email services) solely for the purpose of operating our service.
+            We do not sell, rent, or trade your personal information to third parties. We may share necessary data with trusted service providers (e.g., email services) solely for the purpose of operating our service.
           </p>
 
           <h2 className="text-2xl font-bold text-slate-800 mt-8">4. Data Security</h2>
