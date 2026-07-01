@@ -7,8 +7,8 @@ export async function GET() {
   try {
     const players = await getPlayers();
     
-    // We limit the event to 3 participants
-    const maxSlots = 3;
+    // We limit the event to 6 participants
+    const maxSlots = 6;
     const currentCount = players.length;
     const isFull = currentCount >= maxSlots;
 
