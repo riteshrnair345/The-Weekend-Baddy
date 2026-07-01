@@ -117,7 +117,7 @@ export async function POST(request: Request) {
         await transporter.sendMail({
           from: `"RacketHeads Kochi" <${process.env.EMAIL_USER}>`,
           to: player.email,
-          subject: "🏸 You're in! Welcome to The Weekend Baddys",
+          subject: "🏸 You're in! Welcome to RacketHeads Kochi 🏸",
           html: htmlBody,
           attachments: [
             {
